@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, MouseEvent } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +18,30 @@ export default function HealthReportPage() {
   const [isDetecting, setIsDetecting] = useState(false);
   const [isRecommending, setIsRecommending] = useState(false);
   const { toast } = useToast();
+  
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>, index: number) => {
+    const card = cardRefs.current[index];
+    if (!card) return;
+
+    const { left, top, width, height } = card.getBoundingClientRect();
+    const x = e.clientX - left - width / 2;
+    const y = e.clientY - top - height / 2;
+    
+    const rotateX = -y / (height / 2) * 10;
+    const rotateY = x / (width / 2) * 10;
+
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+  };
+
+  const handleMouseLeave = (index: number) => {
+    const card = cardRefs.current[index];
+    if (card) {
+      card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+    }
+  };
+
 
   const handleDeficiencyDetection = async () => {
     setIsDetecting(true);
@@ -62,7 +86,7 @@ export default function HealthReportPage() {
         <p className="text-muted-foreground">Analyze your diet for deficiencies and get personalized food recommendations.</p>
       </div>
 
-      <Card>
+      <Card className="card-glow">
         <CardHeader>
           <CardTitle className="font-headline">Nutrient Deficiency Detection</CardTitle>
           <CardDescription>Click the button to analyze your logged meals and profile for potential nutrient deficiencies.</CardDescription>
@@ -93,7 +117,7 @@ export default function HealthReportPage() {
       </Card>
 
       {(isRecommending || recommendations) && (
-        <Card>
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle className="font-headline">Personalized Food Recommendations</CardTitle>
             <CardDescription>Here are some foods to help with your deficiencies, presented in 3D.</CardDescription>
@@ -112,7 +136,12 @@ export default function HealthReportPage() {
                     return (
                         <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
                             <div className="p-1">
-                            <Card className="transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                            <Card 
+                                ref={el => cardRefs.current[index] = el}
+                                className="card-3d"
+                                onMouseMove={(e) => handleMouseMove(e, index)}
+                                onMouseLeave={() => handleMouseLeave(index)}
+                            >
                                 <CardContent className="flex flex-col aspect-square items-center justify-center p-0">
                                 <Image
                                     src={placeholder.imageUrl}

@@ -71,7 +71,7 @@ export default function MealAnalyzerPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 items-start">
-        <Card>
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle className="font-headline">Upload Meal Photo</CardTitle>
           </CardHeader>
@@ -98,7 +98,7 @@ export default function MealAnalyzerPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle className="font-headline">Analysis Results</CardTitle>
             <CardDescription>Here is the nutritional breakdown of your meal.</CardDescription>

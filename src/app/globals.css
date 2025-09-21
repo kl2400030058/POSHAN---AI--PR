@@ -8,40 +8,41 @@ body {
 
 @layer base {
   :root {
-    --background: 220 20% 96%;
-    --foreground: 220 15% 20%;
-    --card: 220 20% 100%;
-    --card-foreground: 220 15% 20%;
-    --popover: 220 20% 100%;
-    --popover-foreground: 220 15% 20%;
-    --primary: 220 90% 60%;
-    --primary-foreground: 220 15% 98%;
-    --secondary: 220 15% 90%;
-    --secondary-foreground: 220 15% 20%;
-    --muted: 220 15% 90%;
-    --muted-foreground: 220 15% 45%;
-    --accent: 260 90% 65%;
-    --accent-foreground: 220 15% 98%;
-    --destructive: 0 84.2% 60.2%;
+    --background: 220 15% 10%;
+    --foreground: 220 15% 90%;
+    --card: 220 15% 15%;
+    --card-foreground: 220 15% 90%;
+    --popover: 220 15% 15%;
+    --popover-foreground: 220 15% 90%;
+    --primary: 48 90% 60%;
+    --primary-foreground: 220 15% 10%;
+    --secondary: 220 15% 25%;
+    --secondary-foreground: 220 15% 90%;
+    --muted: 220 15% 25%;
+    --muted-foreground: 220 15% 60%;
+    --accent: 30 90% 65%;
+    --accent-foreground: 220 15% 10%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 15% 88%;
-    --input: 220 15% 94%;
-    --ring: 220 90% 60%;
-    --chart-1: 220 90% 60%;
-    --chart-2: 260 90% 65%;
+    --border: 220 15% 30%;
+    --input: 220 15% 30%;
+    --ring: 48 90% 60%;
+    --chart-1: 48 90% 60%;
+    --chart-2: 30 90% 65%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 220 15% 15%;
-    --sidebar-foreground: 220 15% 85%;
-    --sidebar-primary: 220 90% 60%;
-    --sidebar-primary-foreground: 220 15% 98%;
-    --sidebar-accent: 220 15% 25%;
-    --sidebar-accent-foreground: 220 15% 95%;
+    --sidebar-background: 220 15% 10%;
+    --sidebar-foreground: 220 15% 90%;
+    --sidebar-primary: 48 90% 60%;
+    --sidebar-primary-foreground: 220 15% 10%;
+    --sidebar-accent: 220 15% 20%;
+    --sidebar-accent-foreground: 220 15% 90%;
     --sidebar-border: 220 15% 25%;
-    --sidebar-ring: 220 90% 60%;
+    --sidebar-ring: 48 90% 60%;
   }
+
   .dark {
     --background: 220 15% 10%;
     --foreground: 220 15% 90%;
@@ -49,27 +50,27 @@ body {
     --card-foreground: 220 15% 90%;
     --popover: 220 15% 15%;
     --popover-foreground: 220 15% 90%;
-    --primary: 220 90% 60%;
-    --primary-foreground: 220 15% 98%;
+    --primary: 48 90% 60%;
+    --primary-foreground: 220 15% 10%;
     --secondary: 220 15% 25%;
     --secondary-foreground: 220 15% 90%;
     --muted: 220 15% 25%;
     --muted-foreground: 220 15% 60%;
-    --accent: 260 90% 65%;
-    --accent-foreground: 220 15% 98%;
+    --accent: 30 90% 65%;
+    --accent-foreground: 220 15% 10%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 15% 30%;
     --input: 220 15% 30%;
-    --ring: 220 90% 60%;
+    --ring: 48 90% 60%;
     --sidebar-background: 220 15% 10%;
     --sidebar-foreground: 220 15% 90%;
-    --sidebar-primary: 220 90% 60%;
-    --sidebar-primary-foreground: 220 15% 98%;
+    --sidebar-primary: 48 90% 60%;
+    --sidebar-primary-foreground: 220 15% 10%;
     --sidebar-accent: 220 15% 20%;
     --sidebar-accent-foreground: 220 15% 90%;
     --sidebar-border: 220 15% 25%;
-    --sidebar-ring: 220 90% 60%;
+    --sidebar-ring: 48 90% 60%;
   }
 }
 
@@ -79,5 +80,41 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .animated-gradient {
+    background: linear-gradient(-45deg, hsl(var(--background)), hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.2), hsl(var(--background)));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .card-glow {
+    @apply transition-all duration-300;
+  }
+  .card-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3), 0 0 30px hsl(var(--accent) / 0.2);
+  }
+
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .card-3d:hover {
+     box-shadow: 0 10px 30px rgba(0,0,0,0.2), 0 0 40px hsl(var(--primary) / 0.4);
   }
 }

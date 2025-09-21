@@ -36,7 +36,7 @@ export default function DashboardPage() {
         {nutrients.map(nutrient => {
             const percentage = (nutrient.current / nutrient.goal) * 100;
             return (
-                <Card key={nutrient.name}>
+                <Card key={nutrient.name} className="card-glow">
                     <CardHeader>
                         <CardTitle className="font-headline">{nutrient.name}</CardTitle>
                         <CardDescription>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
         })}
       </div>
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle className="font-headline">Calorie Breakdown</CardTitle>
             <CardDescription>Calories from Protein, Carbs, and Fats</CardDescription>
@@ -72,7 +72,7 @@ export default function DashboardPage() {
             </ChartContainer>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle className="font-headline">Macronutrient Goals</CardTitle>
             <CardDescription>Your progress towards daily macro goals</CardDescription>
