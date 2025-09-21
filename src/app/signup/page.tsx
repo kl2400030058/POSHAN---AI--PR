@@ -8,9 +8,10 @@ import { Label } from '@/components/ui/label';
 import { Logo } from '@/components/logo';
 import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const router = useRouter();
-  const handleLogin = (e: React.FormEvent) => {
+
+  const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     router.push('/dashboard');
   };
@@ -23,37 +24,31 @@ export default function LoginPage() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline text-2xl">Login</CardTitle>
-            <CardDescription>Enter your email below to login to your account</CardDescription>
+            <CardTitle className="font-headline text-2xl">Create an account</CardTitle>
+            <CardDescription>Enter your information to create an account</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="grid gap-4">
+            <form onSubmit={handleSignup} className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="full-name">Full Name</Label>
+                <Input id="full-name" placeholder="Alex Doe" required />
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="m@example.com" required />
               </div>
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link href="#" className="ml-auto inline-block text-sm underline">
-                    Forgot your password?
-                  </Link>
-                </div>
+                <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" required />
               </div>
               <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                Login
-              </Button>
-              <Button variant="outline" className="w-full" asChild>
-                <Link href="/signup">
-                    Sign up
-                </Link>
+                Create account
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{' '}
-              <Link href="/signup" className="underline">
-                Sign up
+              Already have an account?{' '}
+              <Link href="/" className="underline">
+                Login
               </Link>
             </div>
           </CardContent>
