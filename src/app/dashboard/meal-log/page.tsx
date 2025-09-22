@@ -55,13 +55,12 @@ export default function MealLogPage() {
           <div className="space-y-4">
               {mealLogs.map((log) => (
                 <Card key={log.id} className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 card-glow">
-                  <div className="md:col-span-1">
+                  <div className="md:col-span-1 relative h-full min-h-[200px]">
                      <Image
                         src={log.imageUrl}
                         alt={log.items}
-                        width={300}
-                        height={200}
-                        className="rounded-l-lg object-cover w-full h-full"
+                        fill
+                        className="rounded-l-lg object-cover"
                         data-ai-hint={log.imageHint}
                       />
                   </div>
