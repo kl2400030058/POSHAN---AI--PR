@@ -1,158 +1,64 @@
-.embla {
-  --slide-spacing: 1rem;
-  --slide-size: 100%;
-  --slide-height: 19rem;
-}
-.embla__viewport {
-  overflow: hidden;
-}
-.embla__container {
-  backface-visibility: hidden;
-  display: flex;
-  touch-action: pan-y;
-  margin-left: calc(var(--slide-spacing) * -1);
-}
-.embla__slide {
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  padding-left: var(--slide-spacing);
-  position: relative;
-}
-.embla__slide__img {
-  display: block;
-  height: var(--slide-height);
-  width: 100%;
-  object-fit: cover;
-}
-.embla__button {
-  -webkit-appearance: none;
-  background-color: transparent;
-  touch-action: manipulation;
-  display: inline-flex;
-  text-decoration: none;
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+export type MealLog = {
+    id: string;
+    meal: string;
+    items: string;
+    date: string;
+    calories: number;
+    protein: number;
+    carbs: number;
+    fats: number;
+    imageUrl: string;
+    imageHint: string;
+};
 
-body {
-  font-family: 'PT Sans', sans-serif;
-}
-
-@layer base {
-  :root {
-    --background: 220 15% 10%;
-    --foreground: 220 15% 90%;
-    --card: 220 15% 15%;
-    --card-foreground: 220 15% 90%;
-    --popover: 220 15% 15%;
-    --popover-foreground: 220 15% 90%;
-    --primary: 48 90% 60%;
-    --primary-foreground: 220 15% 10%;
-    --secondary: 220 15% 25%;
-    --secondary-foreground: 220 15% 90%;
-    --muted: 220 15% 25%;
-    --muted-foreground: 220 15% 60%;
-    --accent: 30 90% 65%;
-    --accent-foreground: 220 15% 10%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 15% 30%;
-    --input: 220 15% 30%;
-    --ring: 48 90% 60%;
-    --chart-1: 48 90% 60%;
-    --chart-2: 30 90% 65%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-    --sidebar-background: 220 15% 10%;
-    --sidebar-foreground: 220 15% 90%;
-    --sidebar-primary: 48 90% 60%;
-    --sidebar-primary-foreground: 220 15% 10%;
-    --sidebar-accent: 220 15% 20%;
-    --sidebar-accent-foreground: 220 15% 90%;
-    --sidebar-border: 220 15% 25%;
-    --sidebar-ring: 48 90% 60%;
-  }
-
-  .dark {
-    --background: 220 15% 10%;
-    --foreground: 220 15% 90%;
-    --card: 220 15% 15%;
-    --card-foreground: 220 15% 90%;
-    --popover: 220 15% 15%;
-    --popover-foreground: 220 15% 90%;
-    --primary: 48 90% 60%;
-    --primary-foreground: 220 15% 10%;
-    --secondary: 220 15% 25%;
-    --secondary-foreground: 220 15% 90%;
-    --muted: 220 15% 25%;
-    --muted-foreground: 220 15% 60%;
-    --accent: 30 90% 65%;
-    --accent-foreground: 220 15% 10%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 15% 30%;
-    --input: 220 15% 30%;
-    --ring: 48 90% 60%;
-    --sidebar-background: 220 15% 10%;
-    --sidebar-foreground: 220 15% 90%;
-    --sidebar-primary: 48 90% 60%;
-    --sidebar-primary-foreground: 220 15% 10%;
-    --sidebar-accent: 220 15% 20%;
-    --sidebar-accent-foreground: 220 15% 90%;
-    --sidebar-border: 220 15% 25%;
-    --sidebar-ring: 48 90% 60%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer utilities {
-  .animated-gradient {
-    background: linear-gradient(-45deg, hsl(var(--background)), hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.2), hsl(var(--background)));
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-  }
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  .card-glow {
-    @apply transition-all duration-300;
-  }
-  .card-glow:hover {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3), 0 0 30px hsl(var(--accent) / 0.2);
-  }
-
-  .card-3d {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-  .card-3d:hover {
-     box-shadow: 0 10px 30px rgba(0,0,0,0.2), 0 0 40px hsl(var(--primary) / 0.4);
-  }
-}
+export const mealLogs: MealLog[] = [
+    {
+      id: '1',
+      meal: 'Breakfast',
+      items: '2 Aloo Parathas with a bowl of Curd',
+      date: '2024-07-29',
+      calories: 450,
+      protein: 12,
+      carbs: 60,
+      fats: 18,
+      imageUrl: 'https://images.unsplash.com/photo-1603530948356-d41azzi8def4?w=600&h=400&fit=crop',
+      imageHint: 'aloo paratha',
+    },
+    {
+      id: '2',
+      meal: 'Lunch',
+      items: 'Rajma Chawal with a side of cucumber-tomato salad',
+      date: '2024-07-29',
+      calories: 600,
+      protein: 20,
+      carbs: 90,
+      fats: 15,
+      imageUrl: 'https://images.unsplash.com/photo-1603530948356-d41azzi8def4?w=600&h=400&fit=crop',
+      imageHint: 'rajma chawal',
+    },
+    {
+      id: '3',
+      meal: 'Dinner',
+      items: 'Paneer Butter Masala with 2 Rotis',
+      date: '2024-07-29',
+      calories: 550,
+      protein: 18,
+      carbs: 50,
+      fats: 30,
+      imageUrl: 'https://images.unsplash.com/photo-1565557623262-b9a32c3d5216?w=600&h=400&fit=crop',
+      imageHint: 'paneer butter masala',
+    },
+    {
+      id: '4',
+      meal: 'Snack',
+      items: 'A bowl of fruit salad (Apple, Banana, Orange)',
+      date: '2024-07-29',
+      calories: 150,
+      protein: 2,
+      carbs: 35,
+      fats: 1,
+      imageUrl: 'https://images.unsplash.com/photo-1592804923793-12a1c0a09a54?w=600&h=400&fit=crop',
+      imageHint: 'fruit salad',
+    },
+];
