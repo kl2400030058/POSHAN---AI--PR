@@ -13,19 +13,19 @@ import {z} from 'genkit';
 const AIDeficiencyDetectionInputSchema = z.object({
   profile: z
     .string()
-    .describe('User profile including age, weight, height, gender, health issues, and preferred diet.'),
-  mealLogs: z.string().describe('User meal logs including food items and portion sizes.'),
+    .describe('User profile including age, weight, height, gender, health issues (e.g., anemia, vitamin D deficiency), and preferred diet (e.g., Vegetarian).'),
+  mealLogs: z.string().describe('User meal logs including Indian food items (e.g., roti, dal, paneer) and portion sizes.'),
 });
 export type AIDeficiencyDetectionInput = z.infer<typeof AIDeficiencyDetectionInputSchema>;
 
 const AIDeficiencyDetectionOutputSchema = z.object({
   deficiencies: z
     .string()
-    .describe('Identified nutrient deficiencies based on the user profile and meal logs.'),
+    .describe('Identified nutrient deficiencies based on the user profile and meal logs, with a focus on common Indian dietary patterns.'),
   recommendations: z
     .string()
     .describe(
-      'Personalized recommendations to address the identified nutrient deficiencies, tailored to the user\'s health conditions such as obesity.'
+      'Personalized recommendations to address the identified nutrient deficiencies, suggesting locally available Indian food items.'
     ),
 });
 export type AIDeficiencyDetectionOutput = z.infer<typeof AIDeficiencyDetectionOutputSchema>;
@@ -38,16 +38,16 @@ const prompt = ai.definePrompt({
   name: 'aiDeficiencyDetectionPrompt',
   input: {schema: AIDeficiencyDetectionInputSchema},
   output: {schema: AIDeficiencyDetectionOutputSchema},
-  prompt: `You are a registered dietician specializing in identifying nutrient deficiencies and providing personalized dietary recommendations.
+  prompt: `You are a registered dietician specializing in Indian nutrition. You need to identify nutrient deficiencies and provide personalized dietary recommendations for an Indian user.
 
-  Based on the user's profile and meal logs, analyze their current nutrient intake and identify any potential deficiencies.
-  Provide personalized recommendations to address these deficiencies, taking into account any health conditions such as obesity.
+  Based on the user's profile and their meal logs (which consist of Indian dishes), analyze their nutrient intake and identify potential deficiencies.
+  Provide personalized recommendations to address these deficiencies, suggesting easily available Indian food items. Consider common health issues in India like anemia and vitamin D deficiency.
 
   User Profile: {{{profile}}}
   Meal Logs: {{{mealLogs}}}
 
-  Ensure that the recommendations are practical and sustainable, focusing on dietary changes that can be easily incorporated into the user's lifestyle.
-  Highlight the importance of a balanced diet and regular physical activity for overall health and well-being.
+  Ensure that the recommendations are practical, culturally appropriate, and sustainable for someone following an Indian diet.
+  Highlight the importance of a balanced diet and an active lifestyle for overall well-being.
 `,
 });
 

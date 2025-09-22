@@ -24,7 +24,7 @@ const AnalyzeMealOutputSchema = z.object({
   calories: z.number().describe('The estimated calorie count of the meal.'),
   contents: z
     .string()
-    .describe('A description of the contents of the meal.'),
+    .describe('A description of the contents of the meal, recognizing Indian dishes if present.'),
 });
 export type AnalyzeMealOutput = z.infer<typeof AnalyzeMealOutputSchema>;
 
@@ -36,7 +36,7 @@ const prompt = ai.definePrompt({
   name: 'analyzeMealPrompt',
   input: {schema: AnalyzeMealInputSchema},
   output: {schema: AnalyzeMealOutputSchema},
-  prompt: `You are an expert nutritionist. You will analyze the image of the meal and provide an estimate of the calorie count and a description of the contents of the meal.
+  prompt: `You are an expert nutritionist with deep knowledge of Indian cuisine. You will analyze the image of the meal and provide an estimate of the calorie count and a description of the contents of the meal. Be specific about identifying Indian food items.
 
 Analyze the following meal:
 {{media url=photoDataUri}}`,

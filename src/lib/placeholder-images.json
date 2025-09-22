@@ -1,52 +1,53 @@
+
 {
   "placeholderImages": [
     {
       "id": "food-1",
-      "description": "A bowl of salmon salad.",
+      "description": "A bowl of dal.",
       "imageUrl": "https://picsum.photos/seed/10/600/400",
-      "imageHint": "salmon salad"
+      "imageHint": "dal soup"
     },
     {
       "id": "food-2",
-      "description": "A plate of grilled chicken breast with vegetables.",
+      "description": "A plate of paneer tikka.",
       "imageUrl": "https://picsum.photos/seed/11/600/400",
-      "imageHint": "grilled chicken"
+      "imageHint": "paneer tikka"
     },
     {
       "id": "food-3",
-      "description": "A bowl of spinach and kale smoothie.",
+      "description": "A glass of lassi.",
       "imageUrl": "https://picsum.photos/seed/12/600/400",
-      "imageHint": "green smoothie"
+      "imageHint": "lassi drink"
     },
     {
       "id": "food-4",
-      "description": "A handful of almonds and walnuts.",
+      "description": "A handful of almonds and cashews.",
       "imageUrl": "https://picsum.photos/seed/13/600/400",
-      "imageHint": "nuts"
+      "imageHint": "dry fruits"
     },
     {
       "id": "food-5",
-      "description": "A glass of fortified milk.",
+      "description": "A glass of milk.",
       "imageUrl": "https://picsum.photos/seed/14/600/400",
       "imageHint": "milk glass"
     },
     {
       "id": "food-6",
-      "description": "A plate of lentil soup.",
+      "description": "A bowl of sprout salad.",
       "imageUrl": "https://picsum.photos/seed/15/600/400",
-      "imageHint": "lentil soup"
+      "imageHint": "sprout salad"
     },
     {
       "id": "food-7",
-      "description": "A serving of Greek yogurt with berries.",
+      "description": "A serving of dahi (yogurt) with fruit.",
       "imageUrl": "https://picsum.photos/seed/16/600/400",
-      "imageHint": "greek yogurt"
+      "imageHint": "dahi fruit"
     },
     {
       "id": "food-8",
-      "description": "Cooked quinoa.",
+      "description": "Cooked millet.",
       "imageUrl": "https://picsum.photos/seed/17/600/400",
-      "imageHint": "quinoa"
+      "imageHint": "millet"
     }
   ]
 }

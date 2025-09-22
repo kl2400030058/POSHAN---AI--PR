@@ -3,7 +3,7 @@
 
 /**
  * @fileOverview This file defines a Genkit flow for providing personalized food recommendations
- * based on user-specific nutrient deficiencies and health conditions.
+ * based on user-specific nutrient deficiencies and health conditions, tailored for an Indian context.
  *
  * The flow takes user profile information, current nutrient intake, and identified deficiencies as input.
  * It then leverages an LLM to generate personalized food recommendations to address these deficiencies,
@@ -24,8 +24,8 @@ const PersonalizedFoodRecommendationsInputSchema = z.object({
     weight: z.number().describe('The user\u2019s weight in kilograms.'),
     height: z.number().describe('The user\u2019s height in centimeters.'),
     gender: z.enum(['male', 'female']).describe('The user\u2019s gender.'),
-    healthIssues: z.string().describe('Any health issues the user has.'),
-    preferredDiet: z.string().describe('The user\u2019s preferred diet.'),
+    healthIssues: z.string().describe('Any health issues the user has (e.g., Anemia, Vitamin D deficiency).'),
+    preferredDiet: z.string().describe('The user\u2019s preferred diet (e.g., Vegetarian).'),
   }).describe('The user profile information.'),
   nutrientIntake: z.string().describe('The user\u2019s current daily nutrient intake.'),
   identifiedDeficiencies: z.string().describe('The identified nutrient deficiencies of the user.'),
@@ -37,10 +37,10 @@ export type PersonalizedFoodRecommendationsInput = z.infer<typeof PersonalizedFo
 const PersonalizedFoodRecommendationsOutputSchema = z.object({
   recommendations: z.array(
     z.object({
-      foodItem: z.string().describe('The recommended food item.'),
+      foodItem: z.string().describe('The recommended Indian food item.'),
       rationale: z.string().describe('The rationale for recommending this food item, based on the identified deficiencies and health conditions.'),
     })
-  ).describe('An array of personalized food recommendations.'),
+  ).describe('An array of personalized food recommendations with Indian food items.'),
 });
 
 export type PersonalizedFoodRecommendationsOutput = z.infer<typeof PersonalizedFoodRecommendationsOutputSchema>;
@@ -61,7 +61,7 @@ const personalizedFoodRecommendationsPrompt = ai.definePrompt({
   output: {
     schema: PersonalizedFoodRecommendationsOutputSchema,
   },
-  prompt: `You are a registered dietician providing personalized food recommendations to users based on their nutrient deficiencies and health conditions.
+  prompt: `You are a registered dietician specializing in Indian nutrition. Provide personalized food recommendations to an Indian user based on their nutrient deficiencies and health conditions.
 
   Here's the user's profile:
   Age: {{{userProfile.age}}}
@@ -77,8 +77,8 @@ const personalizedFoodRecommendationsPrompt = ai.definePrompt({
   Here are the user's identified nutrient deficiencies:
   {{{identifiedDeficiencies}}}
 
-  Based on this information, provide a list of personalized food recommendations, along with a rationale for each recommendation.
-  Consider the user's health conditions and preferred diet when making recommendations.
+  Based on this information, provide a list of personalized food recommendations using locally available Indian food items. Include a rationale for each recommendation.
+  Consider the user's health conditions and preferred diet (e.g., Vegetarian).
   Format the recommendations as a JSON array of objects, where each object has a foodItem and a rationale field.
   `,
 });

@@ -15,29 +15,29 @@ import { Logo } from '@/components/logo';
 
 const slideshowImages = [
   {
-    src: 'https://picsum.photos/seed/food1/1920/1080',
-    alt: 'A table spread with fresh, healthy food.',
-    hint: 'healthy food',
+    src: 'https://picsum.photos/seed/indianfood1/1920/1080',
+    alt: 'A table spread with a variety of colorful Indian dishes.',
+    hint: 'indian thali',
   },
   {
-    src: 'https://picsum.photos/seed/food2/1920/1080',
-    alt: 'A person holding a basket of fresh vegetables from a farm.',
-    hint: 'fresh vegetables',
+    src: 'https://picsum.photos/seed/farmindia/1920/1080',
+    alt: 'An Indian farmer working in a lush green paddy field.',
+    hint: 'indian farmer',
   },
   {
-    src: 'https://picsum.photos/seed/food3/1920/1080',
-    alt: 'A colorful salad in a bowl.',
-    hint: 'colorful salad',
+    src: 'https://picsum.photos/seed/indianmarket/1920/1080',
+    alt: 'A vibrant Indian market stall selling fresh vegetables.',
+    hint: 'vegetable market',
   },
   {
-    src: 'https://picsum.photos/seed/community/1920/1080',
-    alt: 'People sharing food at a community gathering.',
-    hint: 'community food',
+    src: 'https://picsum.photos/seed/communityindia/1920/1080',
+    alt: 'People sharing a community meal in a rural Indian village.',
+    hint: 'community meal',
   },
   {
-    src: 'https://picsum.photos/seed/security/1920/1080',
-    alt: 'A farmer tending to crops in a field.',
-    hint: 'farming crops',
+    src: 'https://picsum.photos/seed/spices/1920/1080',
+    alt: 'A colorful array of Indian spices in bowls.',
+    hint: 'indian spices',
   },
 ];
 
