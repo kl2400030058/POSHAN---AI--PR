@@ -7,10 +7,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
-import { userProfile, mealLogs } from '@/lib/data';
 import { aiDeficiencyDetection, AIDeficiencyDetectionOutput } from '@/ai/flows/ai-deficiency-detection';
 import { personalizedFoodRecommendations, PersonalizedFoodRecommendationsOutput } from '@/ai/flows/personalized-food-recommendations.ts';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function HealthReportPage() {
   const [deficiencyReport, setDeficiencyReport] = useState<AIDeficiencyDetectionOutput | null>(null);
@@ -18,6 +18,7 @@ export default function HealthReportPage() {
   const [isDetecting, setIsDetecting] = useState(false);
   const [isRecommending, setIsRecommending] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
   
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -47,34 +48,49 @@ export default function HealthReportPage() {
     setIsDetecting(true);
     setDeficiencyReport(null);
     setRecommendations(null);
+    
+    // NOTE: This will be replaced with real user data from Firestore
+    const userProfile = {
+        age: 28,
+        weight: 65,
+        height: 160,
+        gender: 'female' as 'male' | 'female',
+        healthIssues: 'Anemia, Vitamin D deficiency',
+        preferredDiet: 'Vegetarian',
+    };
+    const mealLogs = [
+        { meal: 'Breakfast', items: '2 parathas with curd' },
+        { meal: 'Lunch', items: 'Rajma chawal with a side of salad' },
+        { meal: 'Dinner', items: 'Paneer butter masala with 2 rotis' },
+    ];
+
+
     try {
       const profileString = `Age: ${userProfile.age}, Weight: ${userProfile.weight}kg, Height: ${userProfile.height}cm, Gender: ${userProfile.gender}, Health Issues: ${userProfile.healthIssues}, Diet: ${userProfile.preferredDiet}`;
       const logsString = mealLogs.map(log => `${log.meal}: ${log.items}`).join('\n');
       const report = await aiDeficiencyDetection({ profile: profileString, mealLogs: logsString });
       setDeficiencyReport(report);
-      handleRecommendations(report.deficiencies);
+      if (report.deficiencies) {
+        // Assume userProfile is fetched and available
+        const result = await personalizedFoodRecommendations({ 
+            userProfile: {
+                ...userProfile,
+                // These fields are required by the schema, but may not be on the firebase user object
+                weight: userProfile.weight || 0,
+                height: userProfile.height || 0,
+                healthIssues: userProfile.healthIssues || 'none',
+                preferredDiet: userProfile.preferredDiet || 'none'
+            },
+            nutrientIntake: 'Not available', // This can be derived from mealLogs in a real app
+            identifiedDeficiencies: report.deficiencies
+        });
+        setRecommendations(result.recommendations);
+      }
     } catch (error) {
       console.error(error);
       toast({ title: 'Error Detecting Deficiencies', description: 'Could not generate health report.', variant: 'destructive' });
     } finally {
       setIsDetecting(false);
-    }
-  };
-
-  const handleRecommendations = async (deficiencies: string) => {
-    setIsRecommending(true);
-    try {
-      const nutrientIntake = 'Mock nutrient intake data'; // This can be derived from mealLogs in a real app
-      const result = await personalizedFoodRecommendations({ 
-        userProfile, 
-        nutrientIntake, 
-        identifiedDeficiencies: deficiencies 
-      });
-      setRecommendations(result.recommendations);
-    } catch (error) {
-      console.error(error);
-      toast({ title: 'Error Getting Recommendations', description: 'Could not generate food recommendations.', variant: 'destructive' });
-    } finally {
       setIsRecommending(false);
     }
   };

@@ -7,13 +7,15 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { userProfile } from '@/lib/data';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function ProfilePage() {
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Logic to update user profile in Firestore will be added here
     toast({
       title: 'Profile Updated',
       description: 'Your information has been saved successfully.',
@@ -36,31 +38,31 @@ export default function ProfilePage() {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="name">Full Name</Label>
-                <Input id="name" defaultValue={userProfile.name} />
+                <Input id="name" defaultValue={user?.displayName ?? ''} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" defaultValue={userProfile.email} />
+                <Input id="email" type="email" defaultValue={user?.email ?? ''} disabled />
               </div>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="age">Age</Label>
-                <Input id="age" type="number" defaultValue={userProfile.age} />
+                <Input id="age" type="number" placeholder="Your age" />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="weight">Weight (kg)</Label>
-                <Input id="weight" type="number" defaultValue={userProfile.weight} />
+                <Input id="weight" type="number" placeholder="Your weight in kg" />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="height">Height (cm)</Label>
-                <Input id="height" type="number" defaultValue={userProfile.height} />
+                <Input id="height" type="number" placeholder="Your height in cm" />
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
                  <div className="grid gap-2">
                 <Label htmlFor="gender">Gender</Label>
-                <Select defaultValue={userProfile.gender}>
+                <Select>
                   <SelectTrigger id="gender">
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
@@ -72,7 +74,7 @@ export default function ProfilePage() {
               </div>
                 <div className="grid gap-2">
                 <Label htmlFor="diet">Preferred Diet</Label>
-                 <Select defaultValue={userProfile.preferredDiet}>
+                 <Select>
                   <SelectTrigger id="diet">
                     <SelectValue placeholder="Select diet preference" />
                   </SelectTrigger>
@@ -89,7 +91,7 @@ export default function ProfilePage() {
 
             <div className="grid gap-2">
               <Label htmlFor="health-issues">Health Issues</Label>
-              <Textarea id="health-issues" defaultValue={userProfile.healthIssues} placeholder="e.g., High cholesterol, pre-diabetic" />
+              <Textarea id="health-issues" placeholder="e.g., High cholesterol, pre-diabetic" />
             </div>
             <div className="flex justify-end">
               <Button type="submit">Save Changes</Button>

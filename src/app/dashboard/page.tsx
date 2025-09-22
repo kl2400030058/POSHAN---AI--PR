@@ -4,7 +4,23 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell } from 'recharts';
-import { dailyTotals, recommendedDailyAllowances, userProfile } from '@/lib/data';
+import { useAuth } from '@/hooks/use-auth';
+
+// NOTE: The data here will be replaced with real user data from Firestore
+const dailyTotals = {
+  calories: 1750,
+  protein: 47,
+  carbs: 215,
+  fats: 71,
+};
+
+const recommendedDailyAllowances = {
+  calories: 2000,
+  protein: 55,
+  carbs: 250,
+  fats: 60,
+};
+
 
 const macroData = [
   { name: 'Protein', value: dailyTotals.protein, fill: 'var(--color-protein)' },
@@ -26,10 +42,11 @@ const nutrients = [
 ];
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   return (
     <div className="grid gap-6">
       <div className="space-y-2">
-        <h1 className="text-3xl font-headline font-bold">Welcome back, {userProfile.name}!</h1>
+        <h1 className="text-3xl font-headline font-bold">Welcome back, {user?.displayName || 'User'}!</h1>
         <p className="text-muted-foreground">Here&apos;s a summary of your nutrient intake for today.</p>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">

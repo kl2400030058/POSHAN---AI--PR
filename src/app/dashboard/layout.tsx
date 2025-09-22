@@ -19,7 +19,6 @@ import {
   LayoutDashboard,
   BookHeart,
   Camera,
-  FlaskConical,
   User,
   LogOut,
   BarChart,
@@ -27,8 +26,8 @@ import {
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { userProfile } from '@/lib/data';
+import { useAuth } from '@/hooks/use-auth';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const menuItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -41,6 +40,18 @@ const menuItems = [
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { user, loading, signOut } = useAuth();
+
+  if (loading) {
+      return (
+          <div className="flex h-screen w-full items-center justify-center">
+              <div className="flex flex-col items-center gap-4">
+                  <Logo />
+                  <p className="text-muted-foreground">Loading your dashboard...</p>
+              </div>
+          </div>
+      )
+  }
 
   return (
     <SidebarProvider>
@@ -71,7 +82,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={{ children: 'Logout' }}>
+              <SidebarMenuButton onClick={signOut} asChild tooltip={{ children: 'Logout' }}>
                 <Link href="/">
                   <LogOut />
                   <span>Logout</span>
@@ -85,10 +96,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-card px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 sm:pt-4">
             <SidebarTrigger className="md:hidden" />
             <div className="ml-auto flex items-center gap-4">
-                <span className="font-semibold">{userProfile.name}</span>
+                <span className="font-semibold">{user?.displayName || 'User'}</span>
                 <Avatar>
-                    <AvatarImage src="https://images.unsplash.com/photo-1551847589-9b2f67dc1444?w=40&h=40&fit=crop" alt="User avatar" />
-                    <AvatarFallback>PS</AvatarFallback>
+                    <AvatarImage src={user?.photoURL ?? ''} alt="User avatar" />
+                    <AvatarFallback>{user?.displayName?.charAt(0) ?? 'U'}</AvatarFallback>
                 </Avatar>
             </div>
         </header>
