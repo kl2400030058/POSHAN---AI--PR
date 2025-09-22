@@ -10,12 +10,12 @@ export const userProfile = {
 };
 
 export const mealLogs = [
-  { id: 1, date: '2024-07-28', meal: 'Breakfast', items: '2 parathas with curd', calories: 450, protein: 12, carbs: 60, fats: 18 },
-  { id: 2, date: '2024-07-28', meal: 'Lunch', items: 'Rajma chawal with a side of salad', calories: 600, protein: 20, carbs: 90, fats: 15 },
-  { id: 3, date: '2024-07-28', meal: 'Dinner', items: 'Paneer butter masala with 2 rotis', calories: 700, protein: 25, carbs: 65, fats: 38 },
-  { id: 4, date: '2024-07-27', meal: 'Breakfast', items: 'Poha with peanuts and sev', calories: 400, protein: 10, carbs: 70, fats: 10 },
-  { id: 5, date: '2024-07-27', meal: 'Lunch', items: 'Dal makhani with rice and cucumber raita', calories: 550, protein: 18, carbs: 85, fats: 15 },
-  { id: 6, date: '2024-07-27', meal: 'Dinner', items: 'Mixed vegetable curry with 2 multigrain rotis', calories: 650, protein: 15, carbs: 75, fats: 30 },
+  { id: 1, date: '2024-07-28', meal: 'Breakfast', items: '2 parathas with curd', calories: 450, protein: 12, carbs: 60, fats: 18, imageUrl: 'https://picsum.photos/seed/paratha/300/200', imageHint: 'paratha curd' },
+  { id: 2, date: '2024-07-28', meal: 'Lunch', items: 'Rajma chawal with a side of salad', calories: 600, protein: 20, carbs: 90, fats: 15, imageUrl: 'https://picsum.photos/seed/rajma/300/200', imageHint: 'rajma chawal' },
+  { id: 3, date: '2024-07-28', meal: 'Dinner', items: 'Paneer butter masala with 2 rotis', calories: 700, protein: 25, carbs: 65, fats: 38, imageUrl: 'https://picsum.photos/seed/paneer/300/200', imageHint: 'paneer butter masala' },
+  { id: 4, date: '2024-07-27', meal: 'Breakfast', items: 'Poha with peanuts and sev', calories: 400, protein: 10, carbs: 70, fats: 10, imageUrl: 'https://picsum.photos/seed/poha/300/200', imageHint: 'poha breakfast' },
+  { id: 5, date: '2024-07-27', meal: 'Lunch', items: 'Dal makhani with rice and cucumber raita', calories: 550, protein: 18, carbs: 85, fats: 15, imageUrl: 'https://picsum.photos/seed/dalmakhani/300/200', imageHint: 'dal makhani' },
+  { id: 6, date: '2024-07-27', meal: 'Dinner', items: 'Mixed vegetable curry with 2 multigrain rotis', calories: 650, protein: 15, carbs: 75, fats: 30, imageUrl: 'https://picsum.photos/seed/vegcurry/300/200', imageHint: 'vegetable curry' },
 ];
 
 export const dailyTotals = {
