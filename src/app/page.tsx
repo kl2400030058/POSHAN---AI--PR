@@ -15,27 +15,27 @@ import { Logo } from '@/components/logo';
 
 const slideshowImages = [
   {
-    src: 'https://picsum.photos/seed/indianfood1/1920/1080',
+    src: 'https://images.unsplash.com/photo-1565557623262-b9a32c3d5216?w=1920&h=1080&fit=crop',
     alt: 'A table spread with a variety of colorful Indian dishes.',
     hint: 'indian thali',
   },
   {
-    src: 'https://picsum.photos/seed/farmindia/1920/1080',
+    src: 'https://images.unsplash.com/photo-1598514983318-2f64f16340b2?w=1920&h=1080&fit=crop',
     alt: 'An Indian farmer working in a lush green paddy field.',
     hint: 'indian farmer',
   },
   {
-    src: 'https://picsum.photos/seed/indianmarket/1920/1080',
+    src: 'https://images.unsplash.com/photo-1547486894-33a5a70979a4?w=1920&h=1080&fit=crop',
     alt: 'A vibrant Indian market stall selling fresh vegetables.',
     hint: 'vegetable market',
   },
   {
-    src: 'https://picsum.photos/seed/communityindia/1920/1080',
+    src: 'https://images.unsplash.com/photo-1606494248893-5473a3c8a9a4?w=1920&h=1080&fit=crop',
     alt: 'People sharing a community meal in a rural Indian village.',
     hint: 'community meal',
   },
   {
-    src: 'https://picsum.photos/seed/spices/1920/1080',
+    src: 'https://images.unsplash.com/photo-1596797038531-27b24316667c?w=1920&h=1080&fit=crop',
     alt: 'A colorful array of Indian spices in bowls.',
     hint: 'indian spices',
   },

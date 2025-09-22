@@ -87,8 +87,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="ml-auto flex items-center gap-4">
                 <span className="font-semibold">{userProfile.name}</span>
                 <Avatar>
-                    <AvatarImage src="https://picsum.photos/seed/user/40/40" alt="@shadcn" />
-                    <AvatarFallback>AD</AvatarFallback>
+                    <AvatarImage src="https://images.unsplash.com/photo-1551847589-9b2f67dc1444?w=40&h=40&fit=crop" alt="User avatar" />
+                    <AvatarFallback>PS</AvatarFallback>
                 </Avatar>
             </div>
         </header>

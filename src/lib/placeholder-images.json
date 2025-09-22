@@ -4,49 +4,49 @@
     {
       "id": "food-1",
       "description": "A bowl of dal.",
-      "imageUrl": "https://picsum.photos/seed/10/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1601600305109-72b61f816a3f?w=600&h=400&fit=crop",
       "imageHint": "dal soup"
     },
     {
       "id": "food-2",
       "description": "A plate of paneer tikka.",
-      "imageUrl": "https://picsum.photos/seed/11/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1567188040759-fb8a873dc6d8?w=600&h=400&fit=crop",
       "imageHint": "paneer tikka"
     },
     {
       "id": "food-3",
       "description": "A glass of lassi.",
-      "imageUrl": "https://picsum.photos/seed/12/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1622310243454-e64de0c1a248?w=600&h=400&fit=crop",
       "imageHint": "lassi drink"
     },
     {
       "id": "food-4",
       "description": "A handful of almonds and cashews.",
-      "imageUrl": "https://picsum.photos/seed/13/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1609240833722-c31fa48a4a5e?w=600&h=400&fit=crop",
       "imageHint": "dry fruits"
     },
     {
       "id": "food-5",
       "description": "A glass of milk.",
-      "imageUrl": "https://picsum.photos/seed/14/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1563200987-a06a09a52865?w=600&h=400&fit=crop",
       "imageHint": "milk glass"
     },
     {
       "id": "food-6",
       "description": "A bowl of sprout salad.",
-      "imageUrl": "https://picsum.photos/seed/15/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1549488344-cbb6c34cf08b?w=600&h=400&fit=crop",
       "imageHint": "sprout salad"
     },
     {
       "id": "food-7",
       "description": "A serving of dahi (yogurt) with fruit.",
-      "imageUrl": "https://picsum.photos/seed/16/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1562221448-9990b11c9703?w=600&h=400&fit=crop",
       "imageHint": "dahi fruit"
     },
     {
       "id": "food-8",
       "description": "Cooked millet.",
-      "imageUrl": "https://picsum.photos/seed/17/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1553046736-6e5a40b3b44b?w=600&h=400&fit=crop",
       "imageHint": "millet"
     }
   ]
