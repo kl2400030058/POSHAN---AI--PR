@@ -8,10 +8,9 @@ import { Label } from '@/components/ui/label';
 import { PlusCircle } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import Image from 'next/image';
+import { mealLogs } from '@/lib/data'; // Import mealLogs
 
 export default function MealLogPage() {
-
-    const mealLogs: any[] = []; // This will be replaced with real data from Firestore
 
   return (
     <div className="grid gap-6">
