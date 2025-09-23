@@ -5,6 +5,9 @@ import { Progress } from '@/components/ui/progress';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell } from 'recharts';
 import { useAuth } from '@/hooks/use-auth';
+import { Droplet } from 'lucide-react';
+import Image from 'next/image';
+import { mealLogs } from '@/lib/data';
 
 // NOTE: The data here will be replaced with real user data from Firestore
 const dailyTotals = {
@@ -12,6 +15,7 @@ const dailyTotals = {
   protein: 47,
   carbs: 215,
   fats: 71,
+  water: 1.5, // in Liters
 };
 
 const recommendedDailyAllowances = {
@@ -19,13 +23,14 @@ const recommendedDailyAllowances = {
   protein: 55,
   carbs: 250,
   fats: 60,
+  water: 3, // in Liters
 };
 
 
 const macroData = [
-  { name: 'Protein', value: dailyTotals.protein, fill: 'var(--color-protein)' },
-  { name: 'Carbs', value: dailyTotals.carbs, fill: 'var(--color-carbs)' },
-  { name: 'Fats', value: dailyTotals.fats, fill: 'var(--color-fats)' },
+  { name: 'Protein', value: dailyTotals.protein * 4, fill: 'hsl(var(--chart-1))' },
+  { name: 'Carbs', value: dailyTotals.carbs * 4, fill: 'hsl(var(--chart-2))' },
+  { name: 'Fats', value: dailyTotals.fats * 9, fill: 'hsl(var(--chart-5))' },
 ];
 
 const macroChartConfig = {
@@ -66,9 +71,46 @@ export default function DashboardPage() {
                 </Card>
             )
         })}
+         <Card className="card-glow">
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><Droplet/> Water Intake</CardTitle>
+                <CardDescription>
+                    {dailyTotals.water} / {recommendedDailyAllowances.water} L
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Progress value={(dailyTotals.water / recommendedDailyAllowances.water) * 100} aria-label="Water intake" />
+            </CardContent>
+        </Card>
       </div>
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card className="card-glow">
+
+       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+         <Card className="card-glow lg:col-span-1">
+            <CardHeader>
+                <CardTitle className="font-headline">Today&apos;s Meals</CardTitle>
+                <CardDescription>A log of the food you have consumed today.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                {mealLogs.slice(0, 3).map((log) => (
+                    <div key={log.id} className="flex items-center gap-4">
+                        <Image
+                            src={log.imageUrl}
+                            alt={log.items}
+                            width={80}
+                            height={80}
+                            className="rounded-lg object-cover w-20 h-20"
+                            data-ai-hint={log.imageHint}
+                        />
+                        <div className="flex-1">
+                            <p className="font-bold font-headline text-primary">{log.meal}</p>
+                            <p className="text-sm text-muted-foreground">{log.items}</p>
+                            <p className="text-xs font-bold">{log.calories} kcal</p>
+                        </div>
+                    </div>
+                ))}
+            </CardContent>
+        </Card>
+        <Card className="card-glow lg:col-span-1">
           <CardHeader>
             <CardTitle className="font-headline">Calorie Breakdown</CardTitle>
             <CardDescription>Calories from Protein, Carbs, and Fats</CardDescription>
@@ -80,31 +122,12 @@ export default function DashboardPage() {
                   cursor={false}
                   content={<ChartTooltipContent hideLabel />}
                 />
-                <Pie data={macroData} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} strokeWidth={2}>
+                <Pie data={macroData} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} strokeWidth={2} labelLine={false}>
                     {macroData.map((entry) => (
                         <Cell key={`cell-${entry.name}`} fill={entry.fill} />
                     ))}
                 </Pie>
               </PieChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-        <Card className="card-glow">
-          <CardHeader>
-            <CardTitle className="font-headline">Macronutrient Goals</CardTitle>
-            <CardDescription>Your progress towards daily macro goals</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={macroChartConfig} className="w-full h-[300px]">
-                <BarChart accessibilityLayer data={nutrients.slice(1)} layout="vertical" margin={{left: 10, right: 10}}>
-                    <CartesianGrid horizontal={false} />
-                    <XAxis type="number" hide />
-                    <Bar dataKey="current" layout="vertical" radius={5} barSize={20}>
-                        {nutrients.slice(1).map((nutrient, index) => (
-                           <Cell key={`cell-${nutrient.name}`} fill={Object.values(macroChartConfig)[index].color} />
-                        ))}
-                    </Bar>
-                </BarChart>
             </ChartContainer>
           </CardContent>
         </Card>
