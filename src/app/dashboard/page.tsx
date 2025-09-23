@@ -98,12 +98,12 @@ export default function DashboardPage() {
                             alt={log.items}
                             width={80}
                             height={80}
-                            className="rounded-lg object-cover w-20 h-20"
+                            className="rounded-lg object-cover w-20 h-20 flex-shrink-0"
                             data-ai-hint={log.imageHint}
                         />
-                        <div className="flex-1">
-                            <p className="font-bold font-headline text-primary">{log.meal}</p>
-                            <p className="text-sm text-muted-foreground">{log.items}</p>
+                        <div className="flex-1 min-w-0">
+                            <p className="font-bold font-headline text-primary truncate">{log.meal}</p>
+                            <p className="text-sm text-muted-foreground break-words">{log.items}</p>
                             <p className="text-xs font-bold">{log.calories} kcal</p>
                         </div>
                     </div>
