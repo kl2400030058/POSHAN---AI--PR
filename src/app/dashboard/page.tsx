@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell } from 'recharts';
 import { useAuth } from '@/hooks/use-auth';
-import { Droplet } from 'lucide-react';
+import { Droplet, Leaf, Lightbulb } from 'lucide-react';
 import Image from 'next/image';
 import { mealLogs } from '@/lib/data';
 
@@ -54,14 +54,14 @@ export default function DashboardPage() {
         <h1 className="text-3xl font-headline font-bold">Welcome back, {user?.displayName || 'User'}!</h1>
         <p className="text-muted-foreground">Here&apos;s a summary of your nutrient intake for today.</p>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
         {nutrients.map(nutrient => {
             const percentage = (nutrient.current / nutrient.goal) * 100;
             return (
                 <Card key={nutrient.name} className="card-glow">
                     <CardHeader>
-                        <CardTitle className="font-headline">{nutrient.name}</CardTitle>
-                        <CardDescription>
+                        <CardTitle className="font-headline text-lg">{nutrient.name}</CardTitle>
+                        <CardDescription className="text-xs">
                             {nutrient.current} / {nutrient.goal} {nutrient.unit}
                         </CardDescription>
                     </CardHeader>
@@ -73,8 +73,8 @@ export default function DashboardPage() {
         })}
          <Card className="card-glow">
             <CardHeader>
-                <CardTitle className="font-headline flex items-center gap-2"><Droplet/> Water Intake</CardTitle>
-                <CardDescription>
+                <CardTitle className="font-headline text-lg flex items-center gap-2"><Droplet/> Water</CardTitle>
+                <CardDescription className="text-xs">
                     {dailyTotals.water} / {recommendedDailyAllowances.water} L
                 </CardDescription>
             </CardHeader>
@@ -84,7 +84,7 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+       <div className="grid gap-6 lg:grid-cols-3">
          <Card className="card-glow lg:col-span-1">
             <CardHeader>
                 <CardTitle className="font-headline">Today&apos;s Meals</CardTitle>
@@ -110,19 +110,40 @@ export default function DashboardPage() {
                 ))}
             </CardContent>
         </Card>
+        
+        <Card className="card-glow lg:col-span-1 flex flex-col">
+          <CardHeader>
+            <CardTitle className="font-headline flex items-center gap-2"><Lightbulb className="text-accent"/>Health Spotlight</CardTitle>
+          </CardHeader>
+          <CardContent className="flex-1 flex flex-col justify-between gap-4">
+             <Image
+                src="https://images.unsplash.com/photo-1579584393959-4c33f1b327b4?w=600&h=400&fit=crop"
+                alt="Turmeric"
+                width={600}
+                height={400}
+                className="rounded-lg object-cover"
+                data-ai-hint="turmeric spice"
+            />
+            <div>
+              <h4 className="font-semibold text-primary flex items-center gap-2"><Leaf/>Food Fact</h4>
+              <p className="text-sm text-muted-foreground mt-1">Turmeric, a staple in Indian cooking, contains curcumin which has powerful anti-inflammatory and antioxidant properties.</p>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card className="card-glow lg:col-span-1">
           <CardHeader>
             <CardTitle className="font-headline">Calorie Breakdown</CardTitle>
             <CardDescription>Calories from Protein, Carbs, and Fats</CardDescription>
           </CardHeader>
           <CardContent>
-             <ChartContainer config={macroChartConfig} className="mx-auto aspect-square max-h-[300px]">
+             <ChartContainer config={macroChartConfig} className="mx-auto aspect-square max-h-[250px]">
               <PieChart>
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent hideLabel />}
                 />
-                <Pie data={macroData} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} strokeWidth={2} labelLine={false}>
+                <Pie data={macroData} dataKey="value" nameKey="name" innerRadius={50} outerRadius={80} strokeWidth={2} labelLine={false}>
                     {macroData.map((entry) => (
                         <Cell key={`cell-${entry.name}`} fill={entry.fill} />
                     ))}
