@@ -6,6 +6,8 @@ import { useEffect } from "react";
 
 // List of routes that are publicly accessible
 const publicRoutes = ['/', '/signup', '/signup-doctor'];
+const userRoutes = ['/dashboard', '/dashboard/meal-log', '/dashboard/meal-analyzer', '/dashboard/health-report', '/dashboard/tracker', '/dashboard/profile'];
+const doctorRoutes = ['/doctor/dashboard', '/doctor/dashboard/patients', '/doctor/dashboard/plans', '/doctor/dashboard/insights'];
 
 export const useAuth = () => {
     const context = useAuthContext();
@@ -18,17 +20,20 @@ export const useAuth = () => {
         }
 
         const isPublicRoute = publicRoutes.includes(pathname);
-
+        
+        // If user is not logged in
         if (!context.user) {
-            // If not logged in and not on a public page, redirect to login
+            // If they are on a protected route, redirect to login
             if (!isPublicRoute) {
                  router.push('/');
             }
             return;
         }
 
-        // If user is logged in, but on a public route, redirect to their dashboard
+        // If user is logged in
         const { role } = context.user as AppUser;
+
+        // If user is on a public page, redirect to their dashboard
         if (isPublicRoute) {
             if (role === 'doctor') {
                 router.push('/doctor/dashboard');
@@ -37,24 +42,16 @@ export const useAuth = () => {
             }
             return;
         }
-        
-        // If logged in and on a protected route, ensure they are on the correct one
-        if (role === 'doctor') {
-            // If a doctor is not on a doctor path, redirect them
-            if (!pathname.startsWith('/doctor')) {
-                router.push('/doctor/dashboard');
-            }
-        } else if (role === 'user') {
-            // If a user is not on a user path, redirect them
-            if (!pathname.startsWith('/dashboard')) {
-                router.push('/dashboard');
-            }
-        } else {
-            // If role is not defined (edge case), sign out and redirect to login
-             context.signOut().then(() => router.push('/'));
-        }
 
-    }, [context.loading, context.user, router, pathname, context]);
+        // If user is on a protected route, ensure they have the correct role
+        if (role === 'user' && !pathname.startsWith('/dashboard')) {
+            router.push('/dashboard');
+        } else if (role === 'doctor' && !pathname.startsWith('/doctor/dashboard')) {
+            router.push('/doctor/dashboard');
+        }
+        // If role is undefined or doesn't match, they will be redirected to the base route by the logic above.
+
+    }, [context.loading, context.user, router, pathname]);
 
     return context;
 }
