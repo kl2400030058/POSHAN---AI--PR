@@ -7,8 +7,12 @@ import { auth, db } from '@/lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 // Extend the User type to include our custom fields
-export interface AppUser extends User {
+export interface AppUser extends Partial<User> {
     role?: 'user' | 'doctor';
+    displayName?: string | null;
+    email?: string | null;
+    uid: string;
+    photoURL?: string | null;
 }
 
 interface AuthContextType {
@@ -21,11 +25,27 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const DEMO_MODE = true; // Set to true to bypass login
+
+const demoUser: AppUser = {
+    uid: 'demo-user-123',
+    displayName: 'Demo User',
+    email: 'user@example.com',
+    role: 'user',
+    photoURL: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop'
+};
+
 export const FirebaseProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<AppUser | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (DEMO_MODE) {
+            setUser(demoUser);
+            setLoading(false);
+            return;
+        }
+
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userRef = doc(db, 'users', user.uid);
@@ -41,7 +61,7 @@ export const FirebaseProvider = ({ children }: { children: React.ReactNode }) =>
                     setUser(appUser);
                 } else {
                     // This might happen briefly on first signup before the doc is created
-                    setUser(user);
+                    setUser(user as AppUser);
                 }
             } else {
                 setUser(null);
