@@ -23,6 +23,7 @@ import {
   LogOut,
   BarChart,
   HeartPulse,
+  ClipboardCheck,
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -35,6 +36,7 @@ const menuItems = [
   { href: '/dashboard/meal-analyzer', label: 'Meal Analyzer', icon: Camera },
   { href: '/dashboard/health-report', label: 'Health Report', icon: HeartPulse },
   { href: '/dashboard/tracker', label: 'Progress Tracker', icon: BarChart },
+  { href: '/dashboard/my-plan', label: 'My Plan', icon: ClipboardCheck },
   { href: '/dashboard/profile', label: 'Profile', icon: User },
 ];
 
