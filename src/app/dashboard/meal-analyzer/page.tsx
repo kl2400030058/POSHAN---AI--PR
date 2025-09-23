@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { analyzeMeal, AnalyzeMealOutput } from '@/ai/flows/ai-meal-analysis';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Upload } from 'lucide-react';
+import { Upload, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function MealAnalyzerPage() {
@@ -16,6 +16,7 @@ export default function MealAnalyzerPage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [analysis, setAnalysis] = useState<AnalyzeMealOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
   const { toast } = useToast();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,6 +29,7 @@ export default function MealAnalyzerPage() {
       };
       reader.readAsDataURL(file);
       setAnalysis(null);
+      setIsLogged(false); // Reset log status on new image
     }
   };
 
@@ -42,6 +44,7 @@ export default function MealAnalyzerPage() {
     }
     setIsLoading(true);
     setAnalysis(null);
+    setIsLogged(false);
 
     const reader = new FileReader();
     reader.readAsDataURL(imageFile);
@@ -61,6 +64,22 @@ export default function MealAnalyzerPage() {
             setIsLoading(false);
         }
     };
+  };
+
+  const handleLogMeal = () => {
+    if (!analysis) return;
+
+    // In a real application, you would save this data to your database (e.g., Firestore)
+    console.log('Logging meal:', {
+      ...analysis,
+      timestamp: new Date().toISOString(),
+    });
+
+    setIsLogged(true);
+    toast({
+      title: 'Meal Logged!',
+      description: 'Your meal has been successfully added to your daily log.',
+    });
   };
 
   return (
@@ -116,10 +135,20 @@ export default function MealAnalyzerPage() {
                   <h3 className="font-semibold text-lg">Estimated Calories</h3>
                   <p className="text-4xl font-bold text-primary">{Math.round(analysis.calories)} kcal</p>
                 </div>
-                <div>
+                <div className="mb-6">
                   <h3 className="font-semibold text-lg">Meal Contents</h3>
                   <p className="text-muted-foreground">{analysis.contents}</p>
                 </div>
+                {isLogged ? (
+                  <Button variant="outline" className="w-full" disabled>
+                    <CheckCircle className="mr-2 h-4 w-4" />
+                    Meal Logged Successfully
+                  </Button>
+                ) : (
+                  <Button onClick={handleLogMeal} className="w-full">
+                    Log This Meal
+                  </Button>
+                )}
               </div>
             )}
             {!isLoading && !analysis && (
