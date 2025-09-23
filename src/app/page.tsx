@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -11,11 +12,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Logo } from '@/components/logo';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 
 const slideshowImages = [
+  {
+    src: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1920&h=1080&fit=crop',
+    alt: 'A healthy bowl of salad.',
+    hint: 'healthy salad',
+  },
   {
     src: 'https://images.unsplash.com/photo-1565557623262-b9a32c3d5216?w=1920&h=1080&fit=crop',
     alt: 'A table spread with a variety of colorful Indian dishes.',
@@ -36,11 +43,6 @@ const slideshowImages = [
     alt: 'People sharing a community meal in a rural Indian village.',
     hint: 'community meal',
   },
-  {
-    src: 'https://images.unsplash.com/photo-1596797038531-27b24316667c?w=1920&h=1080&fit=crop',
-    alt: 'A colorful array of Indian spices in bowls.',
-    hint: 'indian spices',
-  },
 ];
 
 export default function LoginPage() {
@@ -57,7 +59,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await signIn(email, password);
-      router.push('/dashboard');
+      // The useAuth hook will handle redirection based on role
     } catch (error: any) {
       toast({
         title: 'Login Failed',
@@ -91,43 +93,75 @@ export default function LoginPage() {
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="absolute inset-0 z-10 bg-black/50" />
+      <div className="absolute inset-0 z-10 bg-black/60" />
 
       <div className="z-20 w-full max-w-md p-4">
         <div className="mx-auto mb-8 flex justify-center">
           <Logo />
         </div>
         <Card className="bg-card/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="font-headline text-2xl">Login</CardTitle>
-            <CardDescription>Enter your email below to login to your account</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link href="#" className="ml-auto inline-block text-sm underline">
-                    Forgot your password?
+          <Tabs defaultValue="user" className="w-full">
+            <CardHeader className="pb-4">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="user">User Login</TabsTrigger>
+                <TabsTrigger value="doctor">Doctor Login</TabsTrigger>
+              </TabsList>
+            </CardHeader>
+            <TabsContent value="user">
+              <CardHeader className="pt-0">
+                <CardTitle className="font-headline text-2xl">User Login</CardTitle>
+                <CardDescription>Enter your email below to login to your account.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleLogin} className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="email-user">Email</Label>
+                    <Input id="email-user" type="email" placeholder="m@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="password-user">Password</Label>
+                    <Input id="password-user" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading}/>
+                  </div>
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isLoading}>
+                    {isLoading ? 'Logging in...' : 'Login as User'}
+                  </Button>
+                </form>
+                <div className="mt-4 text-center text-sm">
+                  Don&apos;t have a user account?{' '}
+                  <Link href="/signup" className="underline">
+                    Sign up
                   </Link>
                 </div>
-                <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading}/>
-              </div>
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isLoading}>
-                {isLoading ? 'Logging in...' : 'Login'}
-              </Button>
-            </form>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{' '}
-              <Link href="/signup" className="underline">
-                Sign up
-              </Link>
-            </div>
-          </CardContent>
+              </CardContent>
+            </TabsContent>
+            <TabsContent value="doctor">
+              <CardHeader className="pt-0">
+                <CardTitle className="font-headline text-2xl">Doctor Login</CardTitle>
+                <CardDescription>Enter your credentials to access the doctor dashboard.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleLogin} className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="email-doctor">Email</Label>
+                    <Input id="email-doctor" type="email" placeholder="dr@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="password-doctor">Password</Label>
+                    <Input id="password-doctor" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading}/>
+                  </div>
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? 'Logging in...' : 'Login as Doctor'}
+                  </Button>
+                </form>
+                 <div className="mt-4 text-center text-sm">
+                  Are you a healthcare professional?{' '}
+                  <Link href="/signup-doctor" className="underline">
+                    Register here
+                  </Link>
+                </div>
+              </CardContent>
+            </TabsContent>
+          </Tabs>
         </Card>
       </div>
     </div>

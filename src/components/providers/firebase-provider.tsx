@@ -1,22 +1,28 @@
+
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, User, Auth } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth, db } from '@/lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
+// Extend the User type to include our custom fields
+export interface AppUser extends User {
+    role?: 'user' | 'doctor';
+}
+
 interface AuthContextType {
-    user: User | null;
+    user: AppUser | null;
     loading: boolean;
     signIn: (email: string, pass: string) => Promise<any>;
     signOut: () => Promise<void>;
-    signUp: (email: string, pass:string, fullName: string) => Promise<any>
+    signUp: (email: string, pass:string, fullName: string, role: 'user' | 'doctor') => Promise<any>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const FirebaseProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<AppUser | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -25,8 +31,16 @@ export const FirebaseProvider = ({ children }: { children: React.ReactNode }) =>
                 const userRef = doc(db, 'users', user.uid);
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
-                    setUser({ ...user, ...userSnap.data() });
+                    // Combine Firebase user data with our custom data from Firestore
+                    const appUser: AppUser = {
+                        ...user,
+                        ...userSnap.data(),
+                        // Type assertion for role
+                        role: userSnap.data().role as 'user' | 'doctor' | undefined,
+                    };
+                    setUser(appUser);
                 } else {
+                    // This might happen briefly on first signup before the doc is created
                     setUser(user);
                 }
             } else {
@@ -43,7 +57,7 @@ export const FirebaseProvider = ({ children }: { children: React.ReactNode }) =>
         loading,
         signIn: (email: string, pass: string) => import('firebase/auth').then(({ signInWithEmailAndPassword }) => signInWithEmailAndPassword(auth, email, pass)),
         signOut: () => import('firebase/auth').then(({ signOut }) => signOut(auth)),
-        signUp: async (email: string, pass: string, fullName: string) => {
+        signUp: async (email: string, pass: string, fullName: string, role: 'user' | 'doctor') => {
             const { createUserWithEmailAndPassword, updateProfile } = await import('firebase/auth');
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
             
@@ -56,6 +70,7 @@ export const FirebaseProvider = ({ children }: { children: React.ReactNode }) =>
                     displayName: fullName,
                     photoURL: userCredential.user.photoURL,
                     createdAt: new Date().toISOString(),
+                    role: role, // Save the role to Firestore
                 }, { merge: true });
             }
 

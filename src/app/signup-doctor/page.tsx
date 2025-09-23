@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 
-export default function SignupPage() {
+export default function SignupDoctorPage() {
   const router = useRouter();
   const { signUp } = useAuth();
   const { toast } = useToast();
@@ -21,19 +21,18 @@ export default function SignupPage() {
   const [fullName, setFullName] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
 
-
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await signUp(email, password, fullName, 'user');
-      router.push('/dashboard');
+      await signUp(email, password, fullName, 'doctor');
+      router.push('/doctor/dashboard'); // Redirect to doctor dashboard
     } catch (error: any) {
       toast({
         title: 'Sign-up Failed',
         description: error.message,
         variant: 'destructive',
-      })
+      });
     } finally {
       setIsLoading(false);
     }
@@ -47,25 +46,25 @@ export default function SignupPage() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline text-2xl">Create a User Account</CardTitle>
-            <CardDescription>Enter your information to get started with your health journey.</CardDescription>
+            <CardTitle className="font-headline text-2xl">Doctor Registration</CardTitle>
+            <CardDescription>Create a professional account to manage your patients.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignup} className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="full-name">Full Name</Label>
-                <Input id="full-name" placeholder="Alex Doe" required value={fullName} onChange={(e) => setFullName(e.target.value)} disabled={isLoading} />
+                <Input id="full-name" placeholder="Dr. Alex Doe" required value={fullName} onChange={(e) => setFullName(e.target.value)} disabled={isLoading} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
+                <Input id="email" type="email" placeholder="dr@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading} />
               </div>
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isLoading}>
-                {isLoading ? 'Creating account...' : 'Create account'}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? 'Creating account...' : 'Create Doctor Account'}
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
@@ -74,10 +73,10 @@ export default function SignupPage() {
                 Login
               </Link>
             </div>
-             <div className="mt-4 text-center text-sm">
-              Are you a doctor?{' '}
-              <Link href="/signup-doctor" className="underline">
-                Register here
+            <div className="mt-4 text-center text-sm">
+              Not a doctor?{' '}
+              <Link href="/signup" className="underline">
+                Create a user account
               </Link>
             </div>
           </CardContent>
