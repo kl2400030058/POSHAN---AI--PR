@@ -61,40 +61,40 @@ export default function MealLogPage() {
             ) : (
                 <div className="space-y-4">
                     {mealLogs.map((log) => (
-                        <Card key={log.id} className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 card-glow">
-                        <div className="md:col-span-1 relative h-full min-h-[200px]">
-                            <Image
-                                src={log.imageUrl}
-                                alt={log.items}
-                                fill
-                                className="rounded-l-lg object-cover"
-                                data-ai-hint={log.imageHint}
-                            />
-                        </div>
-                        <div className="md:col-span-2 p-4">
-                            <div className="flex justify-between items-start">
-                            <div>
-                                <p className="text-sm text-muted-foreground">{log.date}</p>
-                                <p className="font-bold font-headline text-xl text-primary">{log.meal}</p>
-                            </div>
-                            <p className="font-bold text-lg">{log.calories} <span className="text-sm font-normal text-muted-foreground">kcal</span></p>
-                            </div>
-                            <p className="mt-2 text-muted-foreground">{log.items}</p>
-                            <div className="flex justify-around mt-4 text-center text-sm">
-                                <div>
-                                <p className="font-bold">{log.protein}g</p>
-                                <p className="text-muted-foreground">Protein</p>
-                                </div>
-                                <div>
-                                <p className="font-bold">{log.carbs}g</p>
-                                <p className="text-muted-foreground">Carbs</p>
-                                </div>
-                                <div>
-                                <p className="font-bold">{log.fats}g</p>
-                                <p className="text-muted-foreground">Fats</p>
-                                </div>
-                            </div>
-                        </div>
+                        <Card key={log.id} className="grid grid-cols-1 md:grid-cols-3 items-stretch gap-0 overflow-hidden card-glow">
+                          <div className="md:col-span-1 relative h-full min-h-[200px] w-full">
+                              <Image
+                                  src={log.imageUrl}
+                                  alt={log.items}
+                                  fill
+                                  className="object-cover"
+                                  data-ai-hint={log.imageHint}
+                              />
+                          </div>
+                          <div className="md:col-span-2 p-4 flex flex-col justify-center">
+                              <div className="flex justify-between items-start">
+                                  <div>
+                                      <p className="text-sm text-muted-foreground">{log.date}</p>
+                                      <p className="font-bold font-headline text-xl text-primary">{log.meal}</p>
+                                  </div>
+                                  <p className="font-bold text-lg">{log.calories} <span className="text-sm font-normal text-muted-foreground">kcal</span></p>
+                              </div>
+                              <p className="mt-2 text-muted-foreground">{log.items}</p>
+                              <div className="flex justify-around mt-4 text-center text-sm">
+                                  <div>
+                                      <p className="font-bold">{log.protein}g</p>
+                                      <p className="text-muted-foreground">Protein</p>
+                                  </div>
+                                  <div>
+                                      <p className="font-bold">{log.carbs}g</p>
+                                      <p className="text-muted-foreground">Carbs</p>
+                                  </div>
+                                  <div>
+                                      <p className="font-bold">{log.fats}g</p>
+                                      <p className="text-muted-foreground">Fats</p>
+                                  </div>
+                              </div>
+                          </div>
                         </Card>
                     ))}
                 </div>
