@@ -180,7 +180,7 @@ export default function HomePage() {
                   <TableRow>
                     <TableHead className="font-bold text-primary">Stakeholder</TableHead>
                     <TableHead>Problem Today</TableHead>
-                    <TableHead className="text-accent">PoshanAI’s Impact</TableHead>
+                    <TableHead className="text-primary font-bold">PoshanAI’s Impact</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -188,7 +188,7 @@ export default function HomePage() {
                     <TableRow key={row.stakeholder}>
                       <TableCell className="font-medium">{row.stakeholder}</TableCell>
                       <TableCell>{row.problem}</TableCell>
-                      <TableCell className="font-medium text-accent">{row.impact}</TableCell>
+                      <TableCell className="font-medium text-primary">{row.impact}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
