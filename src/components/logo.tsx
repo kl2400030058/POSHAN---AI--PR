@@ -34,16 +34,16 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
        <path 
         d="M17 20.4V29.75" 
         stroke="hsl(var(--primary))" 
-        stroke-width="2.5" 
-        stroke-linecap="round" 
-        stroke-linejoin="round"
+        strokeWidth="2.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
       />
       <path 
-        d="M12.875 25.5H21.125" _
+        d="M12.875 25.5H21.125" 
         stroke="hsl(var(--primary))" 
-        stroke-width="2.5" 
-        stroke-linecap="round" 
-        stroke-linejoin="round"
+        strokeWidth="2.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
       />
       <text
         x="42"
