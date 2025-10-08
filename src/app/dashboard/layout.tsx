@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -100,7 +101,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="ml-auto flex items-center gap-4">
                 <span className="font-semibold">{user?.displayName || 'User'}</span>
                 <Avatar>
-                    <AvatarImage src={user?.photoURL ?? ''} alt="User avatar" />
+                    <AvatarImage src={user?.photoURL || undefined} alt="User avatar" />
                     <AvatarFallback>{user?.displayName?.charAt(0) ?? 'U'}</AvatarFallback>
                 </Avatar>
             </div>

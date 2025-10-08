@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -95,7 +96,7 @@ export default function DoctorDashboardLayout({ children }: { children: React.Re
             <div className="ml-auto flex items-center gap-4">
                 <span className="font-semibold">{user?.displayName || 'Doctor'}</span>
                 <Avatar>
-                    <AvatarImage src={user?.photoURL ?? ''} alt="Doctor avatar" />
+                    <AvatarImage src={user?.photoURL || undefined} alt="Doctor avatar" />
                     <AvatarFallback>{user?.displayName?.charAt(0) ?? 'D'}</AvatarFallback>
                 </Avatar>
             </div>
