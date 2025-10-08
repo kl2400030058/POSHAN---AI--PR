@@ -21,22 +21,22 @@ const impactData = [
 
 const features = [
     {
-        icon: <Bot className="h-8 w-8 text-primary" />,
+        icon: <Bot className="h-6 w-6 text-primary" />,
         title: 'AI Meal Analyzer',
         description: 'Snap a photo of your meal and get an instant breakdown of its nutritional content and calories.'
     },
     {
-        icon: <Target className="h-8 w-8 text-primary" />,
+        icon: <Target className="h-6 w-6 text-primary" />,
         title: 'Nutrient Deficiency Detection',
         description: 'Our AI analyzes your diet to pinpoint potential nutrient gaps and helps you address them effectively.'
     },
     {
-        icon: <BarChart3 className="h-8 w-8 text-primary" />,
+        icon: <BarChart3 className="h-6 w-6 text-primary" />,
         title: 'Personalized Recommendations',
         description: 'Receive tailored food and fitness suggestions based on your unique health profile and goals.'
     },
     {
-        icon: <Users className="h-8 w-8 text-primary" />,
+        icon: <Users className="h-6 w-6 text-primary" />,
         title: 'Daily Progress Dashboard',
         description: 'Track your daily intake of calories, macros, and water to stay on top of your health journey.'
     }
