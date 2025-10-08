@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo';
-import { ArrowRight, Bot, Target, BarChart3, Users } from 'lucide-react';
+import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 
 const impactData = [
@@ -64,12 +64,6 @@ export default function HomePage() {
   const router = useRouter();
   const { user, loading } = useAuth();
 
-  React.useEffect(() => {
-    // This logic is now in useAuth hook, but we can keep a simple check here if needed
-    // or rely on the hook's redirection. For now, the hook handles it.
-  }, [user, loading, router]);
-
-
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -93,26 +87,40 @@ export default function HomePage() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[500px] w-full">
-          <Image
-            src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=600&fit=crop"
-            alt="A flat lay of fresh, healthy fruits and vegetables"
-            fill
-            className="object-cover"
-            priority
-            data-ai-hint="healthy food"
-          />
-          <div className="absolute inset-0 bg-background/60 z-10" />
-          <div className="relative z-20 container flex h-full flex-col items-center justify-center text-center">
-            <h1 className="text-4xl font-headline font-bold md:text-6xl text-foreground">
-              Your AI-Powered Pocket Dietician.
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg text-foreground/80">
-              Analyze your meals, track nutrition, and get personalized recommendations instantly.
-            </p>
-            <div className="mt-8 flex gap-4">
-              <Button size="lg" onClick={() => router.push(user ? '/dashboard' : '/signup')}>Try Now</Button>
-              <Button size="lg" variant="outline">Learn More</Button>
+        <section className="relative w-full overflow-hidden animated-gradient">
+          <div className="container grid lg:grid-cols-2 gap-8 items-center py-20 md:py-32">
+            <div className="z-10">
+              <span className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
+                Smart Nutrition for Every Indian
+              </span>
+              <h1 className="text-4xl font-headline font-bold tracking-tight md:text-5xl lg:text-6xl text-foreground">
+                Meet PoshanAI: Your Smart Nutrition Partner
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg text-foreground/80">
+                From meal scans to personalized plans—health made simple. Analyze your meals, track nutrition, and get personalized recommendations instantly.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="button-glow" onClick={() => router.push(user ? '/dashboard' : '/signup')}>
+                  <Rocket className="mr-2 h-5 w-5" />
+                  Start My Journey
+                </Button>
+                <Button size="lg" variant="outline" onClick={() => router.push('#features')}>
+                  <Search className="mr-2 h-5 w-5" />
+                  Explore Features
+                </Button>
+              </div>
+            </div>
+             <div className="relative group flex items-center justify-center">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full opacity-20 blur-3xl group-hover:opacity-30 transition duration-500 animate-pulse"></div>
+              <Image
+                src="https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=1200&h=1200&auto=format&fit=crop"
+                alt="A vibrant display of fresh vegetables and fruits"
+                width={500}
+                height={500}
+                className="rounded-full object-cover z-10 hero-image-float"
+                priority
+                data-ai-hint="fresh vegetables fruits"
+              />
             </div>
           </div>
         </section>

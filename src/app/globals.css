@@ -8,39 +8,39 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 180 20% 98%; /* Light Teal */
     --foreground: 220 15% 10%;
     --card: 0 0% 100%;
     --card-foreground: 220 15% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 10%;
-    --primary: 142.1 76.2% 36.3%; /* A vibrant green */
+    --primary: 180 58% 47%; /* Saturated Teal */
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 30 90% 65%; /* A warm orange */
+    --accent: 75 100% 50%; /* Chartreuse */
     --accent-foreground: 220 15% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 142.1 76.2% 36.3%;
-    --chart-1: 142.1 76.2% 36.3%;
-    --chart-2: 30 90% 65%;
+    --ring: 180 58% 47%;
+    --chart-1: 180 58% 47%;
+    --chart-2: 75 100% 50%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     --sidebar-background: 220 15% 98%;
     --sidebar-foreground: 220 15% 10%;
-    --sidebar-primary: 142.1 76.2% 36.3%;
+    --sidebar-primary: 180 58% 47%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 210 40% 92%;
     --sidebar-accent-foreground: 220 15% 10%;
     --sidebar-border: 220 15% 85%;
-    --sidebar-ring: 142.1 76.2% 36.3%;
+    --sidebar-ring: 180 58% 47%;
   }
 
   .dark {
@@ -50,27 +50,27 @@ body {
     --card-foreground: 220 15% 90%;
     --popover: 220 15% 15%;
     --popover-foreground: 220 15% 90%;
-    --primary: 48 90% 60%;
-    --primary-foreground: 220 15% 10%;
+    --primary: 180 58% 47%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 220 15% 25%;
     --secondary-foreground: 220 15% 90%;
     --muted: 220 15% 25%;
     --muted-foreground: 220 15% 60%;
-    --accent: 30 90% 65%;
+    --accent: 75 100% 50%;
     --accent-foreground: 220 15% 10%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 15% 30%;
     --input: 220 15% 30%;
-    --ring: 48 90% 60%;
+    --ring: 180 58% 47%;
     --sidebar-background: 220 15% 10%;
     --sidebar-foreground: 220 15% 90%;
-    --sidebar-primary: 48 90% 60%;
-    --sidebar-primary-foreground: 220 15% 10%;
+    --sidebar-primary: 180 58% 47%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 15% 20%;
     --sidebar-accent-foreground: 220 15% 90%;
     --sidebar-border: 220 15% 25%;
-    --sidebar-ring: 48 90% 60%;
+    --sidebar-ring: 180 58% 47%;
   }
 }
 
@@ -106,7 +106,42 @@ body {
     @apply transition-all duration-300;
   }
   .card-glow:hover {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.2), 0 0 30px hsl(var(--accent) / 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.1), 0 2px 10px hsl(var(--accent) / 0.1);
+  }
+
+  .button-glow {
+    @apply transition-all duration-300;
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+    animation: pulse-glow 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse-glow {
+    0% {
+      box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.8);
+    }
+    100% {
+      box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+    }
+  }
+  
+  .hero-image-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
 
   .card-3d {
