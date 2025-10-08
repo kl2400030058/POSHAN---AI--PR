@@ -28,7 +28,7 @@ export default function SignupPage() {
     setIsLoading(true);
     try {
       await signUp(email, password, fullName, 'user');
-      router.push('/dashboard');
+      router.push('/');
     } catch (error) {
       toast({
         title: 'Sign-up Failed',

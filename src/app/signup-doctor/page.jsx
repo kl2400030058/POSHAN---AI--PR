@@ -27,7 +27,7 @@ export default function SignupDoctorPage() {
     setIsLoading(true);
     try {
       await signUp(email, password, fullName, 'doctor');
-      router.push('/doctor/dashboard'); // Redirect to doctor dashboard
+      router.push('/'); // Redirect to homepage
     } catch (error) {
       toast({
         title: 'Sign-up Failed',
@@ -61,7 +61,7 @@ export default function SignupDoctorPage() {
                 <Input id="email" type="email" placeholder="dr@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>_
+                <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading} />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
