@@ -1,12 +1,12 @@
 # PoshanAI: Your AI-Powered Pocket Dietician
 
-![PoshanAI Banner](https://images.unsplash.com/photo-1565557623262-b9a32c3d5216?w=1200&h=400&fit=crop)
+![PoshanAI Banner](https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&h=400&fit=crop)
 
 ---
 
 ## 🚀 Overview
 
-PoshanAI is an intelligent web application designed to act as a personal dietician in your pocket. Specifically tailored for the Indian context, it leverages the power of Generative AI to provide personalized dietary analysis, nutrient deficiency detection, and customized meal and fitness plans. The app aims to combat malnutrition and promote healthier lifestyles by making expert nutritional guidance accessible and affordable for everyone.
+PoshanAI is an intelligent web application designed to act as a personal dietician in your pocket. Specifically tailored for the Indian context, it leverages the power of Generative AI to provide personalized dietary analysis, nutrient deficiency detection, and customized meal and fitness plans. By simply taking a picture of their meal, users get an instant analysis of its contents and caloric value. The app aims to combat malnutrition and promote healthier lifestyles by making expert nutritional guidance accessible and affordable for everyone.
 
 ---
 
@@ -74,7 +74,7 @@ graph TD
 ## 🧠 Tech Stack
 
 -   **Framework**: Next.js (App Router)
--   **Language**: TypeScript
+-   **Language**: JavaScript
 -   **UI**: React, ShadCN UI, Tailwind CSS
 -   **AI Toolkit**: Genkit
 -   **AI Model**: Google Gemini
@@ -87,29 +87,29 @@ graph TD
 ## 🧩 Features
 
 ### Core Features:
--   **AI Meal Analyzer**: Upload a photo of your meal for instant analysis of contents and estimated calories.
--   **Personalized Health Profile**: Input age, weight, height, health issues, and diet preferences.
--   **Nutrient Deficiency Detection**: AI analyzes your profile and meal logs to identify potential nutrient gaps.
--   **Personalized Recommendations**: Get food recommendations tailored to your deficiencies and preferences.
--   **Daily Progress Dashboard**: Track daily intake of calories, macronutrients, and water.
+-   **AI Meal Analyzer**: Just snap a photo of your meal. Our powerful AI instantly recognizes food items, including a wide variety of Indian dishes, and provides a detailed breakdown of its nutritional content and estimated calories.
+-   **Nutrient Deficiency Detection**: Go beyond calorie counting. The app analyzes your meal patterns and health profile to pinpoint potential nutrient gaps, helping you address deficiencies like iron, Vitamin D, and B12.
+-   **Personalized Recommendations**: Receive hyper-personalized food and fitness suggestions that are tailored to your unique body type, lifestyle, and dietary preferences.
+-   **Daily Progress Dashboard**: Your interactive dashboard provides an at-a-glance overview of your day. Easily track your intake of calories, macronutrients (protein, carbs, fats), and water.
+-   **Health Report with BMI**: Generate an AI-powered health report that includes your Body Mass Index (BMI) and an analysis of potential dietary deficiencies.
+-   **Progress Tracker**: Monitor your weight journey and track your intake of key vitamins and minerals over time with intuitive charts and graphs.
 -   **Dual User Roles**: Separate, tailored dashboards for regular users and registered doctors/dieticians.
 
 ### Future Features:
--   **PDF/Image Health Report Analysis**: Upload medical reports for deeper AI-driven insights.
--   **Dynamic Meal & Fitness Plans**: AI-generated daily plans for meals, workouts, and hydration.
--   **Progress Tracking**: Visualize weight, nutrient, and fitness improvements over time with detailed charts.
--   **Doctor-Patient Linking**: Allow doctors to monitor patient progress and create/assign plans.
+-   **PDF/Image Health Report Analysis**: Gain deeper insights by uploading your existing medical reports. Our AI can extract key biomarkers to further customize your recommendations.
+-   **Dynamic Meal & Fitness Plans**: AI-generated daily plans for meals, workouts, and hydration, which adapt based on your progress.
+-   **Doctor-Patient Linking**: Allow doctors to monitor patient progress and create/assign plans directly within the app.
 
 ---
 
 ## 🔍 How It Works
 
-1.  **Onboarding**: The user signs up and completes their health profile, providing key metrics and goals. They can also upload existing health reports.
+1.  **Onboarding**: The user signs up and completes their health profile, providing key metrics, health goals, and dietary preferences.
 2.  **Daily Logging**: The user logs their meals, either manually or by simply taking a picture. The AI Meal Analyzer processes the image and logs the nutritional data automatically.
-3.  **AI Analysis**: Genkit flows process the logged data against the user's profile. The Gemini model identifies nutrient deficiencies and assesses daily intake against personalized goals.
+3.  **AI Analysis & Reporting**: Genkit flows process the logged data against the user's profile. The user can generate a Health Report to see their BMI and have the Gemini model identify nutrient deficiencies.
 4.  **Personalized Plan**: Based on the analysis, the system generates a daily plan, including recommendations for the next meal, a water intake schedule, and a simple workout routine.
-5.  **Dashboard View**: The user's dashboard provides an at-a-glance summary of their daily progress, along with health tips and food facts to keep them engaged.
-6.  **Progress Monitoring**: Over time, the app tracks trends in weight, nutrient intake, and adherence to the plan, providing monthly reports to show health improvements.
+5.  **Dashboard View**: The user's dashboard provides an at-a-glance summary of their daily progress against goals for calories, macros, and hydration.
+6.  **Progress Monitoring**: The Progress Tracker page allows users to visualize trends in their weight and intake of essential vitamins and minerals, providing reports to show health improvements.
 
 ---
 
