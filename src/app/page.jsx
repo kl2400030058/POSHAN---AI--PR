@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo.jsx';
-import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan, Quote, Sparkles, Globe, BookHeart, UtensilsCrossed, Dumbbell, ShieldCheck, HeartPulse, Scale } from 'lucide-react';
+import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan, Quote, Sparkles, Globe, BookHeart, UtensilsCrossed, Dumbbell, ShieldCheck, HeartPulse, Scale, BarChart } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
@@ -18,6 +18,15 @@ const impactData = [
   { stakeholder: 'ICDS Supervisor', problem: 'Delayed, inconsistent data from centers', impact: 'Live dashboards + real-time tracking' },
   { stakeholder: 'Mother / Child', problem: 'Lack of personalized guidance', impact: 'Customized, local diet and wellness plan' },
   { stakeholder: 'Govt / NGO', problem: 'Hard to measure actual progress', impact: 'Data-driven insights for targeted interventions' },
+];
+
+const comparisonData = [
+    { feature: 'Meal Logging', generic: 'Manual search from a generic database', poshan: 'AI-powered image recognition of Indian & global dishes' },
+    { feature: 'Cultural Context', generic: 'Western-centric food databases', poshan: 'Hyper-local focus on Indian cuisine & regional diets' },
+    { feature: 'Nutritional Analysis', generic: 'Basic calorie and macro tracking', poshan: 'Advanced deficiency detection (Iron, Vitamin D, etc.)' },
+    { feature: 'Personalization', generic: 'Based on simple goals like weight loss', poshan: 'Holistic personalization using meal data & health reports' },
+    { feature: 'Recommendations', generic: 'Generic food suggestions (e.g., "eat more salad")', poshan: 'Culturally relevant suggestions (e.g., "add spinach to your dal")' },
+    { feature: 'Data-Driven Insights', generic: 'Limited to personal trends', poshan: 'Analyzes medical reports (PDF/image) for deeper insights' }
 ];
 
 const features = [
@@ -67,18 +76,23 @@ const whyPoshanAIPoints = [
 const howItWorksSteps = [
   {
     step: 1,
-    title: 'Upload Your Meal Photo',
-    description: 'Simply take a picture of your food. No manual entry required.'
+    title: 'Snap Your Meal',
+    description: 'Simply take a picture of your food. No manual typing or searching required.'
   },
   {
     step: 2,
-    title: 'AI Analyzes Nutrition',
-    description: 'Our advanced AI instantly identifies food items and estimates nutritional values.'
+    title: 'Get Instant Analysis',
+    description: 'Our AI instantly identifies food items and estimates calories and nutrients.'
   },
   {
     step: 3,
-    title: 'Get Your Personalized Plan',
-    description: 'Receive a customized diet plan and view your progress on your personal dashboard.'
+    title: 'Receive Your Plan',
+    description: 'Get a customized diet, hydration, and fitness plan tailored to your deficiencies and goals.'
+  },
+  {
+    step: 4,
+    title: 'Track & Improve',
+    description: 'Monitor your weight, vitamin intake, and health metrics with easy-to-read charts and reports.'
   }
 ];
 
@@ -176,6 +190,60 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Comparison Section */}
+        <section id="comparison" className="py-16 sm:py-24">
+            <div className="container">
+                <div className="mx-auto max-w-2xl text-center">
+                    <h2 className="text-3xl font-headline font-bold">The PoshanAI Difference</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">See how PoshanAI stacks up against generic health apps. We're not just different; we're designed for you.</p>
+                </div>
+                <Card className="mt-12 overflow-hidden">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-[200px] font-bold text-primary">Feature</TableHead>
+                                <TableHead>Generic Health Apps</TableHead>
+                                <TableHead className="text-primary font-bold">PoshanAI (The Winner)</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {comparisonData.map((row) => (
+                                <TableRow key={row.feature}>
+                                    <TableCell className="font-medium">{row.feature}</TableCell>
+                                    <TableCell className="text-muted-foreground">{row.generic}</TableCell>
+                                    <TableCell className="font-semibold">{row.poshan}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Card>
+            </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section id="how-it-works" className="bg-muted/50 container py-16 sm:py-24">
+             <div className="mx-auto max-w-2xl text-center">
+                <h2 className="text-3xl font-headline font-bold">Get Started in 4 Simple Steps</h2>
+                <p className="mt-4 text-lg text-muted-foreground">Transform your health with a process that's as easy as it is effective. Your journey to better nutrition is just a photo away.</p>
+            </div>
+            <div className="relative mt-12">
+                <div className="absolute left-0 right-0 top-6 hidden h-px -translate-y-1/2 bg-dashed-border md:block"></div>
+                <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+                    {howItWorksSteps.map((step, index) => (
+                        <div key={index} className="relative flex flex-col items-center text-center">
+                             <div className="z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary bg-background font-headline font-bold text-primary mb-4 lg:mb-0 flex-shrink-0">
+                                {step.step}
+                            </div>
+                            <div className="mt-4">
+                                <h3 className="text-xl font-headline font-bold">{step.title}</h3>
+                                <p className="mt-2 text-muted-foreground">{step.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+        
         {/* Features Section */}
         <section id="features" className="container py-16 sm:py-24">
             <div className="mx-auto max-w-2xl text-center">
@@ -252,32 +320,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section id="how-it-works" className="bg-muted/50 container py-16 sm:py-24">
-             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-headline font-bold">Get Started in 3 Simple Steps</h2>
-                <p className="mt-4 text-lg text-muted-foreground">Transform your health with a process that's as easy as it is effective. Your journey to better nutrition is just a photo away.</p>
-            </div>
-            <div className="relative mt-12">
-                <div className="absolute left-1/2 top-4 hidden h-full w-px -translate-x-1/2 border-l-2 border-dashed border-border lg:block"></div>
-                <div className="grid gap-12 lg:grid-cols-3">
-                    {howItWorksSteps.map((step, index) => (
-                        <div key={index} className="flex flex-col items-center text-center lg:items-start lg:text-left lg:flex-row lg:gap-8">
-                             <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary bg-primary/10 font-headline font-bold text-primary mb-4 lg:mb-0 flex-shrink-0">
-                                {step.step}
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-headline font-bold">{step.title}</h3>
-                                <p className="mt-2 text-muted-foreground">{step.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-
         {/* Testimonials Section */}
-        <section id="testimonials" className="py-16 sm:py-24">
+        <section id="testimonials" className="bg-muted/50 py-16 sm:py-24">
           <div className="container">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-headline font-bold">What Our Users Are Saying</h2>
@@ -307,7 +351,7 @@ export default function HomePage() {
         </section>
 
         {/* Vision Section */}
-        <section id="vision" className="bg-muted/50 py-16 sm:py-24">
+        <section id="vision" className="py-16 sm:py-24">
           <div className="container grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
@@ -340,3 +384,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
