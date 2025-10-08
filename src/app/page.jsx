@@ -10,8 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo.jsx';
-import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan } from 'lucide-react';
+import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan, Quote } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const impactData = [
   { stakeholder: 'Anganwadi Worker', problem: 'Manual recordkeeping', impact: 'Instant AI analysis' },
@@ -22,32 +23,32 @@ const impactData = [
 
 const features = [
     {
-        icon: <Bot className="h-6 w-6 text-primary" />,
+        icon: <Bot className="h-8 w-8 text-primary" />,
         title: 'AI Meal Analyzer',
         description: 'Snap a photo of your meal and get an instant breakdown of its nutritional content and calories.'
     },
     {
-        icon: <Target className="h-6 w-6 text-primary" />,
+        icon: <Target className="h-8 w-8 text-primary" />,
         title: 'Nutrient Deficiency Detection',
         description: 'Our AI analyzes your diet to pinpoint potential nutrient gaps and helps you address them effectively.'
     },
     {
-        icon: <BarChart3 className="h-6 w-6 text-primary" />,
+        icon: <BarChart3 className="h-8 w-8 text-primary" />,
         title: 'Personalized Recommendations',
         description: 'Receive tailored food and fitness suggestions based on your unique health profile and goals.'
     },
     {
-        icon: <LayoutDashboard className="h-6 w-6 text-primary" />,
+        icon: <LayoutDashboard className="h-8 w-8 text-primary" />,
         title: 'Daily Progress Dashboard',
         description: 'Track your daily intake of calories, macros, and water to stay on top of your health journey.'
     },
     {
-        icon: <FileScan className="h-6 w-6 text-primary" />,
+        icon: <FileScan className="h-8 w-8 text-primary" />,
         title: 'Health Report Analysis',
         description: 'Upload your medical reports for deeper AI-driven insights and more accurate recommendations.'
     },
     {
-        icon: <Stethoscope className="h-6 w-6 text-primary" />,
+        icon: <Stethoscope className="h-8 w-8 text-primary" />,
         title: 'Doctor-Patient Collaboration',
         description: 'Connect with your doctor, allowing them to monitor progress and create guided health plans.'
     }
@@ -68,6 +69,30 @@ const howItWorksSteps = [
     step: 3,
     title: 'Get Your Personalized Plan',
     description: 'Receive a customized diet plan and view your progress on your personal dashboard.'
+  }
+];
+
+const testimonials = [
+  {
+    name: 'Anjali Sharma',
+    role: 'ICDS Supervisor',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&q=80',
+    avatarFallback: 'AS',
+    review: "PoshanAI has revolutionized how we monitor nutritional data. The real-time dashboards give me an accurate picture of health trends across centers, allowing for timely interventions. It's a game-changer for public health management."
+  },
+  {
+    name: 'Priya Mehta',
+    role: 'Mother',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&q=80',
+    avatarFallback: 'PM',
+    review: "As a new mother, I was always worried about my child's nutrition. With PoshanAI, I just snap a picture of our meals, and I get instant feedback and healthy, local recipes. It's like having a personal dietician in my pocket!"
+  },
+  {
+    name: 'Sunita Verma',
+    role: 'Anganwadi Worker',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&q=80',
+    avatarFallback: 'SV',
+    review: 'This app saves me hours of paperwork. I can log meals instantly and the AI helps me give better, more specific advice to the mothers in my village. The analysis is simple to understand and very effective.'
   }
 ];
 
@@ -132,7 +157,7 @@ export default function HomePage() {
              <div className="relative group flex items-center justify-center">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full opacity-20 blur-3xl group-hover:opacity-30 transition duration-500 animate-pulse"></div>
               <Image
-                src="https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=1200&h=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1540420773420-2366e2c88c24?q=80&w=1200&h=1200&auto=format&fit=crop"
                 alt="A vibrant display of fresh vegetables and fruits"
                 width={500}
                 height={500}
@@ -221,8 +246,38 @@ export default function HomePage() {
             </div>
         </section>
 
+        {/* Testimonials Section */}
+        <section id="testimonials" className="bg-muted/50 py-16 sm:py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-3xl font-headline font-bold">What Our Users Are Saying</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Real stories from people transforming health in their communities.</p>
+            </div>
+            <div className="mt-12 grid gap-8 md:grid-cols-1 lg:grid-cols-3">
+              {testimonials.map((testimonial, index) => (
+                <Card key={index} className="card-glow flex flex-col">
+                  <CardContent className="pt-6 flex-1 flex flex-col">
+                    <Quote className="w-8 h-8 text-primary/50 mb-4" />
+                    <p className="text-muted-foreground flex-1">{testimonial.review}</p>
+                  </CardContent>
+                  <CardHeader className="flex-row items-center gap-4 pt-4">
+                    <Avatar>
+                        <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                        <AvatarFallback>{testimonial.avatarFallback}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                        <CardTitle className="font-headline text-base">{testimonial.name}</CardTitle>
+                        <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    </div>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Vision Section */}
-        <section id="vision" className="bg-muted/50 py-16 sm:py-24">
+        <section id="vision" className="py-16 sm:py-24">
           <div className="container grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
@@ -254,3 +309,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
