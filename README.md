@@ -97,7 +97,7 @@ graph TD
 ### Future Features:
 -   **PDF/Image Health Report Analysis**: Upload medical reports for deeper AI-driven insights.
 -   **Dynamic Meal & Fitness Plans**: AI-generated daily plans for meals, workouts, and hydration.
--g   **Progress Tracking**: Visualize weight, nutrient, and fitness improvements over time with detailed charts.
+-   **Progress Tracking**: Visualize weight, nutrient, and fitness improvements over time with detailed charts.
 -   **Doctor-Patient Linking**: Allow doctors to monitor patient progress and create/assign plans.
 
 ---

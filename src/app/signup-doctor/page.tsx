@@ -60,7 +60,7 @@ export default function SignupDoctorPage() {
                 <Input id="email" type="email" placeholder="dr@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Password</Label>_
                 <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading} />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>

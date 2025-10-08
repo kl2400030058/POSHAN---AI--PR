@@ -11,25 +11,39 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <path
-        d="M26.333 11.25c0-4.66-3.79-8.45-8.45-8.45S9.433 6.59 9.433 11.25c0 1.94.66 3.73 1.76 5.18l6.69 8.23 6.69-8.23c1.1-1.45 1.76-3.24 1.76-5.18Z"
+        d="M17.0002 4.25C13.4377 4.25 10.5418 7.14582 10.5418 10.7083C10.5418 12.6322 11.2743 14.3756 12.4835 15.6558L17.0002 20.4L21.5168 15.6558C22.726 14.3756 23.4585 12.6322 23.4585 10.7083C23.4585 7.14582 20.5627 4.25 17.0002 4.25Z"
         stroke="hsl(var(--primary))"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M20.25 2.8c-4.14 0-7.5 3.36-7.5 7.5 0 4.14 3.36 7.5 7.5 7.5"
+        d="M17.0002 4.25C15.5627 5.69249 14.6668 7.56291 14.6668 9.58333C14.6668 12.6458 17.0002 15.1667 17.0002 17.8333"
         stroke="hsl(var(--primary))"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M17.9 11.25a2.35 2.35 0 0 1-2.35-2.35"
+        d="M20.8333 11.625C20.8333 13.9167 19.1441 15.8333 17 15.8333C14.8559 15.8333 13.1667 13.9167 13.1667 11.625"
         stroke="hsl(var(--accent))"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+       <path 
+        d="M17 20.4V29.75" 
+        stroke="hsl(var(--primary))" 
+        stroke-width="2.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+      />
+      <path 
+        d="M12.875 25.5H21.125" _
+        stroke="hsl(var(--primary))" 
+        stroke-width="2.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
       />
       <text
         x="42"
