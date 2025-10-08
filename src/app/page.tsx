@@ -95,16 +95,16 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative h-[60vh] min-h-[500px] w-full">
           <Image
-            src="https://images.unsplash.com/photo-1565557623262-b9a32c3d5216?w=1200&h=400&fit=crop"
-            alt="A table spread with a variety of colorful Indian dishes"
+            src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=600&fit=crop"
+            alt="A flat lay of fresh, healthy fruits and vegetables"
             fill
             className="object-cover"
             priority
-            data-ai-hint="indian thali"
+            data-ai-hint="healthy food"
           />
-          <div className="absolute inset-0 bg-black/60 z-10" />
-          <div className="relative z-20 container flex h-full flex-col items-center justify-center text-center text-white">
-            <h1 className="text-4xl font-headline font-bold md:text-6xl">
+          <div className="absolute inset-0 bg-background/60 z-10" />
+          <div className="relative z-20 container flex h-full flex-col items-center justify-center text-center">
+            <h1 className="text-4xl font-headline font-bold md:text-6xl text-foreground">
               Your AI-Powered Pocket Dietician.
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-foreground/80">
@@ -112,7 +112,7 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex gap-4">
               <Button size="lg" onClick={() => router.push(user ? '/dashboard' : '/signup')}>Try Now</Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-black">Learn More</Button>
+              <Button size="lg" variant="outline">Learn More</Button>
             </div>
           </div>
         </section>
