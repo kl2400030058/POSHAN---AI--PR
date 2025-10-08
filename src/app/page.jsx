@@ -131,40 +131,36 @@ export default function HomePage() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative w-full overflow-hidden animated-gradient">
-          <div className="container grid lg:grid-cols-2 gap-8 items-center py-20 md:py-32">
-            <div className="z-10">
-              <span className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
+        <section className="relative w-full overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&h=800&fit=crop"
+            alt="A beautiful arrangement of fresh vegetables and fruits"
+            fill
+            className="object-cover"
+            priority
+            data-ai-hint="fresh vegetables fruits"
+          />
+          <div className="relative z-10 bg-black/50">
+            <div className="container flex flex-col items-center justify-center text-center py-20 md:py-32 text-white">
+              <span className="mb-4 inline-block rounded-full bg-white/20 px-3 py-1 text-sm font-semibold">
                 Smart Nutrition for Every Indian
               </span>
-              <h1 className="text-4xl font-headline font-bold tracking-tight md:text-5xl lg:text-6xl text-foreground">
+              <h1 className="text-4xl font-headline font-bold tracking-tight md:text-5xl lg:text-6xl">
                 Meet PoshanAI: Your Smart Nutrition Partner
               </h1>
-              <p className="mt-6 max-w-2xl text-lg text-foreground/80">
+              <p className="mt-6 max-w-2xl text-lg text-white/90">
                 From meal scans to personalized plans—health made simple. Analyze your meals, track nutrition, and get personalized recommendations instantly.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="button-glow" onClick={() => router.push(user ? '/dashboard' : '/signup')}>
+                <Button size="lg" className="button-glow bg-primary hover:bg-primary/80 text-primary-foreground" onClick={() => router.push(user ? '/dashboard' : '/signup')}>
                   <Rocket className="mr-2 h-5 w-5" />
                   Start My Journey
                 </Button>
-                <Button size="lg" variant="outline" onClick={() => { const el = document.getElementById('features'); el?.scrollIntoView({ behavior: 'smooth' }); }}>
+                <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10 hover:text-white" onClick={() => { const el = document.getElementById('features'); el?.scrollIntoView({ behavior: 'smooth' }); }}>
                   <Search className="mr-2 h-5 w-5" />
                   Explore Features
                 </Button>
               </div>
-            </div>
-             <div className="relative group flex items-center justify-center">
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full opacity-20 blur-3xl group-hover:opacity-30 transition duration-500 animate-pulse"></div>
-              <Image
-                src="https://images.unsplash.com/photo-1540420773420-2366e2c88c24?q=80&w=1200&h=1200&auto=format&fit=crop"
-                alt="A vibrant display of fresh vegetables and fruits"
-                width={500}
-                height={500}
-                className="rounded-full object-cover z-10 hero-image-float"
-                priority
-                data-ai-hint="fresh vegetables fruits"
-              />
             </div>
           </div>
         </section>
@@ -309,5 +305,7 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
 
     
