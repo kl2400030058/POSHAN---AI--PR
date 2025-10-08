@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo';
-import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard } from 'lucide-react';
+import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 
 const impactData = [
@@ -39,6 +39,16 @@ const features = [
         icon: <LayoutDashboard className="h-8 w-8 text-primary" />,
         title: 'Daily Progress Dashboard',
         description: 'Track your daily intake of calories, macros, and water to stay on top of your health journey.'
+    },
+    {
+        icon: <FileScan className="h-8 w-8 text-primary" />,
+        title: 'Health Report Analysis',
+        description: 'Upload your medical reports for deeper AI-driven insights and more accurate recommendations.'
+    },
+    {
+        icon: <Stethoscope className="h-8 w-8 text-primary" />,
+        title: 'Doctor-Patient Collaboration',
+        description: 'Connect with your doctor, allowing them to monitor progress and create guided health plans.'
     }
 ];
 
@@ -139,7 +149,7 @@ export default function HomePage() {
                 <h2 className="text-3xl font-headline font-bold">A smarter way to manage your health</h2>
                 <p className="mt-4 text-lg text-muted-foreground">PoshanAI brings cutting-edge technology to your daily health routine.</p>
             </div>
-            <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {features.map((feature, index) => (
                     <Card key={index} className="card-glow text-center">
                         <CardHeader>
