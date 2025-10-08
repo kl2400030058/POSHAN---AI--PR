@@ -22,6 +22,17 @@ PoshanAI is envisioned as a holistic health and wellness companion that empowers
 
 ---
 
+## 🎯 In Short: The Impact of PoshanAI
+
+| Stakeholder         | Problem Today                                    | PoshanAI's Impact                                  |
+| ------------------- | ------------------------------------------------ | -------------------------------------------------- |
+| **Anganwadi Worker**  | Manual recordkeeping, limited nutrition knowledge | AI-based instant analysis + auto logging           |
+| **ICDS Supervisor**   | Delayed, inconsistent data from centers          | Live dashboards + real-time tracking               |
+| **Mother / Child**    | Lack of personalized guidance                    | Customized, local diet and wellness plan           |
+| **Government / NGO**  | Hard to measure actual progress                  | Data-driven insights for targeted interventions    |
+
+---
+
 ## ⚙️ System Architecture
 
 PoshanAI is built on a modern, serverless architecture designed for scalability and performance.
