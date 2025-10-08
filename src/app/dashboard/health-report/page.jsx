@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,17 @@ import { aiDeficiencyDetection } from '@/ai/flows/ai-deficiency-detection';
 import { personalizedFoodRecommendations } from '@/ai/flows/personalized-food-recommendations';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useAuth } from '@/hooks/use-auth';
+import { Ruler, Weight, HeartPulse } from 'lucide-react';
+
+// NOTE: This will be replaced with real user data from Firestore
+const userProfile = {
+    age: 28,
+    weight: 65, // in kg
+    height: 160, // in cm
+    gender: 'female',
+    healthIssues: 'Anemia, Vitamin D deficiency',
+    preferredDiet: 'Vegetarian',
+};
 
 export default function HealthReportPage() {
   const [deficiencyReport, setDeficiencyReport] = useState(null);
@@ -22,6 +33,32 @@ export default function HealthReportPage() {
   const { user } = useAuth();
   
   const cardRefs = useRef([]);
+
+  const { bmi, category, categoryColor } = useMemo(() => {
+    if (userProfile.weight > 0 && userProfile.height > 0) {
+      const heightInMeters = userProfile.height / 100;
+      const bmiValue = userProfile.weight / (heightInMeters * heightInMeters);
+      const bmiRounded = parseFloat(bmiValue.toFixed(1));
+      let cat = '';
+      let color = '';
+
+      if (bmiRounded < 18.5) {
+        cat = 'Underweight';
+        color = 'text-yellow-500';
+      } else if (bmiRounded >= 18.5 && bmiRounded <= 24.9) {
+        cat = 'Normal';
+        color = 'text-green-500';
+      } else if (bmiRounded >= 25 && bmiRounded <= 29.9) {
+        cat = 'Overweight';
+        color = 'text-orange-500';
+      } else {
+        cat = 'Obese';
+        color = 'text-red-500';
+      }
+      return { bmi: bmiRounded, category: cat, categoryColor: color };
+    }
+    return { bmi: 0, category: 'N/A', categoryColor: 'text-muted-foreground' };
+  }, []);
 
   const handleMouseMove = (e, index) => {
     const card = cardRefs.current[index];
@@ -50,15 +87,6 @@ export default function HealthReportPage() {
     setDeficiencyReport(null);
     setRecommendations(null);
     
-    // NOTE: This will be replaced with real user data from Firestore
-    const userProfile = {
-        age: 28,
-        weight: 65,
-        height: 160,
-        gender: 'female',
-        healthIssues: 'Anemia, Vitamin D deficiency',
-        preferredDiet: 'Vegetarian',
-    };
     const mealLogs = [
         { meal: 'Breakfast', items: '2 parathas with curd' },
         { meal: 'Lunch', items: 'Rajma chawal with a side of salad' },
@@ -72,6 +100,7 @@ export default function HealthReportPage() {
       const report = await aiDeficiencyDetection({ profile: profileString, mealLogs: logsString });
       setDeficiencyReport(report);
       if (report.deficiencies) {
+        setIsRecommending(true);
         // Assume userProfile is fetched and available
         const result = await personalizedFoodRecommendations({ 
             userProfile: {
@@ -103,35 +132,63 @@ export default function HealthReportPage() {
         <p className="text-muted-foreground">Analyze your diet for deficiencies and get personalized food recommendations.</p>
       </div>
 
-      <Card className="card-glow">
-        <CardHeader>
-          <CardTitle className="font-headline">Nutrient Deficiency Detection</CardTitle>
-          <CardDescription>Click the button to analyze your logged meals and profile for potential nutrient deficiencies.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Button onClick={handleDeficiencyDetection} disabled={isDetecting}>
-            {isDetecting ? 'Analyzing...' : 'Analyze My Diet'}
-          </Button>
-          {isDetecting && (
-            <div className="space-y-4 pt-4">
-              <Skeleton className="h-8 w-1/3" />
-              <Skeleton className="h-20 w-full" />
-            </div>
-          )}
-          {deficiencyReport && (
-            <div className="pt-4 space-y-4">
-              <div>
-                <h3 className="font-semibold text-lg">Identified Deficiencies</h3>
-                <p className="text-muted-foreground">{deficiencyReport.deficiencies}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-lg">Recommendations</h3>
-                <p className="text-muted-foreground">{deficiencyReport.recommendations}</p>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      <div className="grid md:grid-cols-2 gap-6 items-start">
+        <Card className="card-glow">
+            <CardHeader>
+            <CardTitle className="font-headline flex items-center gap-2"><HeartPulse/> BMI Index</CardTitle>
+            <CardDescription>Your Body Mass Index based on your profile.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4 text-center">
+                <div className="flex items-center justify-center gap-4">
+                    <div className="text-center">
+                        <p className="text-sm text-muted-foreground">Weight</p>
+                        <p className="font-bold text-xl flex items-center gap-1"><Weight className="w-4 h-4"/>{userProfile.weight} kg</p>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-sm text-muted-foreground">Height</p>
+                        <p className="font-bold text-xl flex items-center gap-1"><Ruler className="w-4 h-4"/>{userProfile.height} cm</p>
+                    </div>
+                </div>
+                <div className="p-6 bg-muted/50 rounded-lg">
+                    <p className="text-sm text-muted-foreground">Your BMI is</p>
+                    <p className="text-5xl font-bold text-primary">{bmi}</p>
+                    <p className={`font-semibold text-lg ${categoryColor}`}>{category}</p>
+                </div>
+                <p className="text-xs text-muted-foreground pt-2">BMI is a value derived from the mass and height of a person. It's a convenient rule of thumb but doesn't account for body composition.</p>
+            </CardContent>
+        </Card>
+
+        <Card className="card-glow">
+            <CardHeader>
+            <CardTitle className="font-headline">Nutrient Deficiency Detection</CardTitle>
+            <CardDescription>Click the button to analyze your logged meals and profile for potential nutrient deficiencies.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+            <Button onClick={handleDeficiencyDetection} disabled={isDetecting}>
+                {isDetecting ? 'Analyzing...' : 'Analyze My Diet'}
+            </Button>
+            {isDetecting && (
+                <div className="space-y-4 pt-4">
+                <Skeleton className="h-8 w-1/3" />
+                <Skeleton className="h-20 w-full" />
+                </div>
+            )}
+            {deficiencyReport && (
+                <div className="pt-4 space-y-4">
+                <div>
+                    <h3 className="font-semibold text-lg">Identified Deficiencies</h3>
+                    <p className="text-muted-foreground">{deficiencyReport.deficiencies}</p>
+                </div>
+                <div>
+                    <h3 className="font-semibold text-lg">Recommendations</h3>
+                    <p className="text-muted-foreground">{deficiencyReport.recommendations}</p>
+                </div>
+                </div>
+            )}
+            </CardContent>
+        </Card>
+      </div>
+
 
       {(isRecommending || recommendations) && (
         <Card className="card-glow">
