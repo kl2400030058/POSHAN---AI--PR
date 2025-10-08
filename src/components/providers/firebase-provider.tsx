@@ -72,30 +72,55 @@ export const FirebaseProvider = ({ children }: { children: React.ReactNode }) =>
         return () => unsubscribe();
     }, []);
 
+    const signIn = async (email: string, pass: string) => {
+        if (DEMO_MODE) {
+            setUser(demoUser);
+            return;
+        }
+        const { signInWithEmailAndPassword } = await import('firebase/auth');
+        return signInWithEmailAndPassword(auth, email, pass);
+    };
+
+    const signOut = async () => {
+        if (DEMO_MODE) {
+            setUser(null);
+            return;
+        }
+        const { signOut: firebaseSignOut } = await import('firebase/auth');
+        return firebaseSignOut(auth);
+    };
+
+    const signUp = async (email: string, pass: string, fullName: string, role: 'user' | 'doctor') => {
+        if (DEMO_MODE) {
+            setUser(role === 'doctor' ? {...demoUser, role: 'doctor' } : demoUser);
+            return;
+        }
+        const { createUserWithEmailAndPassword, updateProfile } = await import('firebase/auth');
+        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+        
+        if (userCredential.user) {
+            await updateProfile(userCredential.user, { displayName: fullName });
+            const userRef = doc(db, 'users', userCredential.user.uid);
+            await setDoc(userRef, {
+                uid: userCredential.user.uid,
+                email: userCredential.user.email,
+                displayName: fullName,
+                photoURL: userCredential.user.photoURL,
+                createdAt: new Date().toISOString(),
+                role: role, // Save the role to Firestore
+            }, { merge: true });
+        }
+
+        return userCredential;
+    };
+
+
     const value = {
         user,
         loading,
-        signIn: (email: string, pass: string) => import('firebase/auth').then(({ signInWithEmailAndPassword }) => signInWithEmailAndPassword(auth, email, pass)),
-        signOut: () => import('firebase/auth').then(({ signOut }) => signOut(auth)),
-        signUp: async (email: string, pass: string, fullName: string, role: 'user' | 'doctor') => {
-            const { createUserWithEmailAndPassword, updateProfile } = await import('firebase/auth');
-            const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-            
-            if (userCredential.user) {
-                await updateProfile(userCredential.user, { displayName: fullName });
-                const userRef = doc(db, 'users', userCredential.user.uid);
-                await setDoc(userRef, {
-                    uid: userCredential.user.uid,
-                    email: userCredential.user.email,
-                    displayName: fullName,
-                    photoURL: userCredential.user.photoURL,
-                    createdAt: new Date().toISOString(),
-                    role: role, // Save the role to Firestore
-                }, { merge: true });
-            }
-
-            return userCredential;
-        }
+        signIn,
+        signOut,
+        signUp,
     };
     
     return (
