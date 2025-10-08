@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo.jsx';
-import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan, Quote, Sparkles, Globe, BookHeart, UtensilsCrossed, Dumbbell, ShieldCheck, HeartPulse, Scale, BarChart } from 'lucide-react';
+import { ArrowRight, Bot, Target, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan, Quote, Sparkles, Globe, BookHeart, UtensilsCrossed, Dumbbell, ShieldCheck, HeartPulse, Scale, BarChart } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
@@ -268,15 +268,22 @@ export default function HomePage() {
         </section>
 
         {/* Why PoshanAI Section */}
-        <section id="why-us" className="bg-muted/50 py-16 sm:py-24">
-          <div className="container">
+        <section id="why-us" className="relative bg-muted/50 py-16 sm:py-24 overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1547592180-85f173990554?w=1600&h=900&fit=crop"
+            alt="Background of Indian spices"
+            fill
+            className="object-cover opacity-10"
+            data-ai-hint="indian spices"
+          />
+          <div className="container relative z-10">
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="text-3xl font-headline font-bold">Why Choose PoshanAI?</h2>
               <p className="mt-4 text-lg text-muted-foreground">PoshanAI is more than just a calorie counter. It's a comprehensive health ecosystem designed to provide you with actionable insights and sustainable habits for a healthier life.</p>
             </div>
             <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {whyPoshanAIPoints.map((point) => (
-                <div key={point.title} className="flex items-start gap-4">
+                <div key={point.title} className="flex items-start gap-4 p-4 rounded-lg bg-background/50 backdrop-blur-sm">
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                     {point.icon}
                   </div>
@@ -384,5 +391,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
