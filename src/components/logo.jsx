@@ -25,11 +25,8 @@ export function Logo(props) {
           <stop offset="0%" stopColor="hsl(var(--foreground))" />
           <stop offset="100%" stopColor="hsl(var(--foreground) / 0.8)" />
         </linearGradient>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="1" dy="2" stdDeviation="1.5" floodColor="hsl(var(--foreground) / 0.1)" />
-        </filter>
       </defs>
-      <g filter="url(#shadow)">
+      <g>
         <g transform="rotate(15 17 17)">
             <ellipse
             cx="17"
@@ -65,7 +62,6 @@ export function Logo(props) {
         y="26"
         className="font-headline text-2xl font-semibold"
         fill="url(#text-gradient)"
-        style={{ textShadow: "1px 1px 2px hsl(var(--foreground) / 0.1)"}}
       >
         PoshanAI
       </text>
