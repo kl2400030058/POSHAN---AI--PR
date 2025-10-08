@@ -157,6 +157,7 @@ export default function HomePage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative w-full overflow-hidden">
+          <div className="absolute inset-0 bg-black/50 z-10"></div>
           <Image
             src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&h=800&fit=crop"
             alt="A beautiful arrangement of fresh vegetables and fruits"
@@ -165,7 +166,7 @@ export default function HomePage() {
             priority
             data-ai-hint="fresh vegetables fruits"
           />
-          <div className="relative z-10 bg-black/50">
+          <div className="relative z-20">
             <div className="container flex flex-col items-center justify-center text-center py-20 md:py-32 text-white">
               <span className="mb-4 inline-block rounded-full bg-white/20 px-3 py-1 text-sm font-semibold">
                 Smart Nutrition for Every Indian
@@ -227,7 +228,7 @@ export default function HomePage() {
                 <p className="mt-4 text-lg text-muted-foreground">Transform your health with a process that's as easy as it is effective. Your journey to better nutrition is just a photo away.</p>
             </div>
             <div className="relative mt-12">
-                <div className="absolute left-0 right-0 top-6 hidden h-px -translate-y-1/2 bg-dashed-border md:block"></div>
+                <div className="absolute left-0 right-0 top-6 hidden h-px -translate-y-1/2 bg-border md:block md:border-t-2 md:border-dashed"></div>
                 <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
                     {howItWorksSteps.map((step, index) => (
                         <div key={index} className="relative flex flex-col items-center text-center">
@@ -358,7 +359,7 @@ export default function HomePage() {
         </section>
 
         {/* Vision Section */}
-        <section id="vision" className="py-16 sm:py-24">
+        <section id="vision" className="py-16 sm:py-24 bg-muted/30">
           <div className="container grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
@@ -375,8 +376,14 @@ export default function HomePage() {
                 </p>
             </div>
             <div className="relative flex items-center justify-center">
-              <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl"></div>
-              <BrainCircuit className="w-48 h-48 lg:w-64 lg:h-64 text-primary/50 relative" />
+               <Image
+                    src="https://images.unsplash.com/photo-1576104848937-7a5a78da5b4b?w=800&h=600&fit=crop"
+                    alt="A mother happily feeding her young child a healthy meal"
+                    width={800}
+                    height={600}
+                    className="rounded-xl shadow-2xl"
+                    data-ai-hint="mother child food"
+                />
             </div>
           </div>
         </section>
