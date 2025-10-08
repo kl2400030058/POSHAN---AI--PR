@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo';
-import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search } from 'lucide-react';
+import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 
 const impactData = [
@@ -75,12 +75,20 @@ export default function HomePage() {
             <Link href="#features" className="text-foreground/60 transition-colors hover:text-foreground/80">Features</Link>
             <Link href="#impact" className="text-foreground/60 transition-colors hover:text-foreground/80">Impact</Link>
             <Link href="#how-it-works" className="text-foreground/60 transition-colors hover:text-foreground/80">How It Works</Link>
+            <Link href="#vision" className="text-foreground/60 transition-colors hover:text-foreground/80">About</Link>
           </nav>
           <div className="flex flex-1 items-center justify-end space-x-4">
-             <Button onClick={() => router.push(user ? '/dashboard' : '/signup')}>
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            {user ? (
+                <Button onClick={() => router.push(user.role === 'doctor' ? '/doctor/dashboard' : '/dashboard')}>
+                    Go to Dashboard
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+            ) : (
+                <Button onClick={() => router.push('/signup')}>
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+            )}
           </div>
         </div>
       </header>
@@ -104,7 +112,7 @@ export default function HomePage() {
                   <Rocket className="mr-2 h-5 w-5" />
                   Start My Journey
                 </Button>
-                <Button size="lg" variant="outline" onClick={() => router.push('#features')}>
+                <Button size="lg" variant="outline" onClick={() => { const el = document.getElementById('features'); el?.scrollIntoView({ behavior: 'smooth' }); }}>
                   <Search className="mr-2 h-5 w-5" />
                   Explore Features
                 </Button>
@@ -201,6 +209,30 @@ export default function HomePage() {
                 </div>
             </div>
         </section>
+
+        {/* Vision Section */}
+        <section id="vision" className="bg-muted/50 py-16 sm:py-24">
+          <div className="container grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                    <HandHeart className="h-8 w-8 text-primary" />
+                  </div>
+                  <h2 className="text-3xl font-headline font-bold">Our Vision: A Healthier India</h2>
+                </div>
+                <p className="text-lg text-muted-foreground">
+                    We are building India’s first AI-powered nutrition ecosystem to combat malnutrition at scale. Our mission is to make personalized, scientific, and culturally relevant dietary guidance accessible to everyone.
+                </p>
+                <p className="text-muted-foreground">
+                    By empowering individuals, anganwadi workers, and healthcare professionals with cutting-edge AI tools, we aim to create a sustainable, data-driven approach to public health. PoshanAI is more than an app; it's a movement towards a healthier future for all.
+                </p>
+            </div>
+            <div className="relative flex items-center justify-center">
+              <BrainCircuit className="w-48 h-48 lg:w-64 lg:h-64 text-primary/20" />
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <footer className="py-8 bg-card border-t">
