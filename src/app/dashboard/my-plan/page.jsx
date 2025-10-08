@@ -1,24 +1,58 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CheckCircle2, Clock, Droplet, Flame, Zap } from 'lucide-react';
+import { Calendar } from '@/components/ui/calendar';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { CheckCircle2, Clock, Droplet, Flame, Zap, ArrowUp, ArrowDown } from 'lucide-react';
+
+const waterIntake = {
+    goal: 3, // Liters
+    consumed: 1.5,
+};
+const waterTimetable = [
+    { time: '8:00 AM', amount: '500ml', completed: true },
+    { time: '11:00 AM', amount: '500ml', completed: true },
+    { time: '2:00 PM', amount: '500ml', completed: true },
+    { time: '5:00 PM', amount: '500ml', completed: false },
+    { time: '8:00 PM', amount: '500ml', completed: false },
+    { time: '10:00 PM', amount: '500ml', completed: false },
+];
+
+const weeklyAnalysisData = {
+    '2024-07-29': {
+        avgCalories: 1950,
+        avgProtein: 50,
+        avgCarbs: 250,
+        avgFats: 80,
+        calorieTrend: -5, // percentage change from last week
+        chartData: [
+            { day: 'Mon', calories: 2100 },
+            { day: 'Tue', calories: 1900 },
+            { day: 'Wed', calories: 2000 },
+            { day: 'Thu', calories: 1850 },
+            { day: 'Fri', calories: 2200 },
+            { day: 'Sat', calories: 2300 },
+            { day: 'Sun', calories: 1800 },
+        ]
+    }
+};
+
+const chartConfig = {
+    calories: {
+        label: 'Calories',
+        color: 'hsl(var(--primary))',
+    },
+};
 
 export default function MyPlanPage() {
-    // This data will eventually come from the user's generated plan
-    const waterIntake = {
-        goal: 3, // Liters
-        consumed: 1.5,
-    };
-    const waterTimetable = [
-        { time: '8:00 AM', amount: '500ml', completed: true },
-        { time: '11:00 AM', amount: '500ml', completed: true },
-        { time: '2:00 PM', amount: '500ml', completed: true },
-        { time: '5:00 PM', amount: '500ml', completed: false },
-        { time: '8:00 PM', amount: '500ml', completed: false },
-        { time: '10:00 PM', amount: '500ml', completed: false },
-    ];
+    const [date, setDate] = useState(new Date());
+
+    const analysis = weeklyAnalysisData['2024-07-29']; // Static mock data for now
+
   return (
     <div className="grid gap-6">
       <div>
@@ -80,16 +114,69 @@ export default function MyPlanPage() {
             </div>
         </TabsContent>
         <TabsContent value="weekly">
-             <Card>
-                <CardHeader>
-                    <CardTitle className="font-headline">Your Week at a Glance</CardTitle>
-                    <CardDescription>Review your upcoming meal and fitness schedule.</CardDescription>
-                </CardHeader>
-                <CardContent className="text-center text-muted-foreground py-20">
-                    <p>A weekly calendar view of your plan will be displayed here.</p>
-                    <p>Coming Soon!</p>
-                </CardContent>
-            </Card>
+            <div className="grid lg:grid-cols-3 gap-6 mt-6">
+                <div className="lg:col-span-1">
+                    <Card>
+                        <CardContent className="p-0">
+                            <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={setDate}
+                                className="w-full"
+                            />
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="lg:col-span-2">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="font-headline">Weekly Analysis</CardTitle>
+                            <CardDescription>Your nutritional summary for the selected week.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            {analysis ? (
+                                <div className="space-y-6">
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">Avg. Calories</p>
+                                            <p className="text-2xl font-bold">{analysis.avgCalories}kcal</p>
+                                            <p className={`text-xs flex items-center justify-center ${analysis.calorieTrend < 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                                {analysis.calorieTrend < 0 ? <ArrowDown className="w-3 h-3 mr-1"/> : <ArrowUp className="w-3 h-3 mr-1"/>}
+                                                {Math.abs(analysis.calorieTrend)}% from last week
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">Avg. Protein</p>
+                                            <p className="text-2xl font-bold">{analysis.avgProtein}g</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">Avg. Carbs</p>
+                                            <p className="text-2xl font-bold">{analysis.avgCarbs}g</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">Avg. Fats</p>
+                                            <p className="text-2xl font-bold">{analysis.avgFats}g</p>
+                                        </div>
+                                    </div>
+                                    <ChartContainer config={chartConfig} className="w-full h-[250px]">
+                                        <BarChart accessibilityLayer data={analysis.chartData}>
+                                            <CartesianGrid vertical={false} />
+                                            <XAxis dataKey="day" tickLine={false} tickMargin={10} axisLine={false} />
+                                            <YAxis hide/>
+                                            <ChartTooltip content={<ChartTooltipContent />} />
+                                            <Bar dataKey="calories" fill="var(--color-calories)" radius={8} />
+                                        </BarChart>
+                                    </ChartContainer>
+                                </div>
+                            ) : (
+                                <div className="text-center text-muted-foreground py-10">
+                                    <p>No analysis available for the selected week.</p>
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
         </TabsContent>
         <TabsContent value="progress">
             <Card>
