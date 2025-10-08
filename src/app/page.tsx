@@ -5,165 +5,201 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Autoplay from 'embla-carousel-autoplay';
-
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo';
+import { ArrowRight, Bot, Target, BarChart3, Users } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
-import { useToast } from '@/hooks/use-toast';
 
-const slideshowImages = [
-  {
-    src: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1920&h=1080&fit=crop',
-    alt: 'A healthy bowl of salad.',
-    hint: 'healthy salad',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1565557623262-b9a32c3d5216?w=1920&h=1080&fit=crop',
-    alt: 'A table spread with a variety of colorful Indian dishes.',
-    hint: 'indian thali',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1598514983318-2f64f16340b2?w=1920&h=1080&fit=crop',
-    alt: 'An Indian farmer working in a lush green paddy field.',
-    hint: 'indian farmer',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1547486894-33a5a70979a4?w=1920&h=1080&fit=crop',
-    alt: 'A vibrant Indian market stall selling fresh vegetables.',
-    hint: 'vegetable market',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1606494248893-5473a3c8a9a4?w=1920&h=1080&fit=crop',
-    alt: 'People sharing a community meal in a rural Indian village.',
-    hint: 'community meal',
-  },
+const impactData = [
+  { stakeholder: 'Anganwadi Worker', problem: 'Manual recordkeeping', impact: 'Instant AI analysis' },
+  { stakeholder: 'ICDS Supervisor', problem: 'Delayed reports', impact: 'Live dashboards' },
+  { stakeholder: 'Mother/Child', problem: 'No diet guidance', impact: 'Personalized plan' },
+  { stakeholder: 'Govt/NGO', problem: 'No real-time data', impact: 'AI-based insights' },
 ];
 
-export default function LoginPage() {
-  const router = useRouter();
-  const { signIn } = useAuth();
-  const { toast } = useToast();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(false);
-  const plugin = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true }));
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      await signIn(email, password);
-      // The useAuth hook will handle redirection based on role
-    } catch (error: any) {
-      toast({
-        title: 'Login Failed',
-        description: error.message,
-        variant: 'destructive'
-      });
-    } finally {
-      setIsLoading(false);
+const features = [
+    {
+        icon: <Bot className="h-8 w-8 text-primary" />,
+        title: 'AI Meal Analyzer',
+        description: 'Snap a photo of your meal and get an instant breakdown of its nutritional content and calories.'
+    },
+    {
+        icon: <Target className="h-8 w-8 text-primary" />,
+        title: 'Nutrient Deficiency Detection',
+        description: 'Our AI analyzes your diet to pinpoint potential nutrient gaps and helps you address them effectively.'
+    },
+    {
+        icon: <BarChart3 className="h-8 w-8 text-primary" />,
+        title: 'Personalized Recommendations',
+        description: 'Receive tailored food and fitness suggestions based on your unique health profile and goals.'
+    },
+    {
+        icon: <Users className="h-8 w-8 text-primary" />,
+        title: 'Daily Progress Dashboard',
+        description: 'Track your daily intake of calories, macros, and water to stay on top of your health journey.'
     }
-  };
+];
+
+const howItWorksSteps = [
+  {
+    step: 1,
+    title: 'Upload Your Meal Photo',
+    description: 'Simply take a picture of your food. No manual entry required.'
+  },
+  {
+    step: 2,
+    title: 'AI Analyzes Nutrition',
+    description: 'Our advanced AI instantly identifies food items and estimates nutritional values.'
+  },
+  {
+    step: 3,
+    title: 'Get Your Personalized Plan',
+    description: 'Receive a customized diet plan and view your progress on your personal dashboard.'
+  }
+];
+
+export default function HomePage() {
+  const router = useRouter();
+  const { user, loading } = useAuth();
+
+  React.useEffect(() => {
+    // This logic is now in useAuth hook, but we can keep a simple check here if needed
+    // or rely on the hook's redirection. For now, the hook handles it.
+  }, [user, loading, router]);
+
 
   return (
-    <div className="relative flex min-h-screen w-full items-center justify-center">
-      <Carousel
-        plugins={[plugin.current]}
-        className="absolute inset-0 z-0 h-full w-full"
-        opts={{ loop: true }}
-      >
-        <CarouselContent className="-ml-0 h-full">
-          {slideshowImages.map((image, index) => (
-            <CarouselItem key={index} className="relative h-full p-0">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                className="object-cover"
-                priority={index === 0}
-                data-ai-hint={image.hint}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      <div className="absolute inset-0 z-10 bg-black/60" />
-
-      <div className="z-20 w-full max-w-md p-4">
-        <div className="mx-auto mb-8 flex justify-center">
-          <Logo />
+    <div className="flex flex-col min-h-screen bg-background">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <Logo />
+          </Link>
+          <nav className="hidden flex-1 items-center space-x-6 text-sm font-medium md:flex">
+            <Link href="#features" className="text-foreground/60 transition-colors hover:text-foreground/80">Features</Link>
+            <Link href="#impact" className="text-foreground/60 transition-colors hover:text-foreground/80">Impact</Link>
+            <Link href="#how-it-works" className="text-foreground/60 transition-colors hover:text-foreground/80">How It Works</Link>
+          </nav>
+          <div className="flex flex-1 items-center justify-end space-x-4">
+             <Button onClick={() => router.push(user ? '/dashboard' : '/signup')}>
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
         </div>
-        <Card className="bg-card/80 backdrop-blur-sm">
-          <Tabs defaultValue="user" className="w-full">
-            <CardHeader className="pb-4">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="user">User Login</TabsTrigger>
-                <TabsTrigger value="doctor">Doctor Login</TabsTrigger>
-              </TabsList>
-            </CardHeader>
-            <TabsContent value="user">
-              <CardHeader className="pt-0">
-                <CardTitle className="font-headline text-2xl">User Login</CardTitle>
-                <CardDescription>Enter your email below to login to your account.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleLogin} className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="email-user">Email</Label>
-                    <Input id="email-user" type="email" placeholder="m@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="password-user">Password</Label>
-                    <Input id="password-user" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading}/>
-                  </div>
-                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isLoading}>
-                    {isLoading ? 'Logging in...' : 'Login as User'}
-                  </Button>
-                </form>
-                <div className="mt-4 text-center text-sm">
-                  Don&apos;t have a user account?{' '}
-                  <Link href="/signup" className="underline">
-                    Sign up
-                  </Link>
+      </header>
+      
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative h-[60vh] min-h-[500px] w-full">
+          <Image
+            src="https://images.unsplash.com/photo-1565557623262-b9a32c3d5216?w=1200&h=400&fit=crop"
+            alt="A table spread with a variety of colorful Indian dishes"
+            fill
+            className="object-cover"
+            priority
+            data-ai-hint="indian thali"
+          />
+          <div className="absolute inset-0 bg-black/60 z-10" />
+          <div className="relative z-20 container flex h-full flex-col items-center justify-center text-center text-white">
+            <h1 className="text-4xl font-headline font-bold md:text-6xl">
+              Your AI-Powered Pocket Dietician.
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg text-foreground/80">
+              Analyze your meals, track nutrition, and get personalized recommendations instantly.
+            </p>
+            <div className="mt-8 flex gap-4">
+              <Button size="lg" onClick={() => router.push(user ? '/dashboard' : '/signup')}>Try Now</Button>
+              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-black">Learn More</Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section id="features" className="container py-16 sm:py-24">
+            <div className="mx-auto max-w-2xl text-center">
+                <h2 className="text-3xl font-headline font-bold">A smarter way to manage your health</h2>
+                <p className="mt-4 text-lg text-muted-foreground">PoshanAI brings cutting-edge technology to your daily health routine.</p>
+            </div>
+            <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                {features.map((feature, index) => (
+                    <Card key={index} className="card-glow text-center">
+                        <CardHeader>
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-4">
+                                {feature.icon}
+                            </div>
+                            <CardTitle className="font-headline">{feature.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-muted-foreground">{feature.description}</p>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+        </section>
+
+        {/* Impact Section */}
+        <section id="impact" className="bg-muted/50 py-16 sm:py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-3xl font-headline font-bold">Empowering Health at Every Level</h2>
+              <p className="mt-4 text-lg text-muted-foreground">From individual users to government initiatives, PoshanAI makes a measurable difference.</p>
+            </div>
+            <Card className="mt-12">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="font-bold text-primary">Stakeholder</TableHead>
+                    <TableHead>Problem Today</TableHead>
+                    <TableHead className="text-accent">PoshanAI’s Impact</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {impactData.map((row) => (
+                    <TableRow key={row.stakeholder}>
+                      <TableCell className="font-medium">{row.stakeholder}</TableCell>
+                      <TableCell>{row.problem}</TableCell>
+                      <TableCell className="font-medium text-accent">{row.impact}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section id="how-it-works" className="container py-16 sm:py-24">
+             <div className="mx-auto max-w-2xl text-center">
+                <h2 className="text-3xl font-headline font-bold">Get Started in 3 Simple Steps</h2>
+                <p className="mt-4 text-lg text-muted-foreground">Transform your health with a process that's as easy as it is effective.</p>
+            </div>
+            <div className="relative mt-12">
+                <div className="absolute left-1/2 top-4 hidden h-full w-px -translate-x-1/2 border-l-2 border-dashed border-border lg:block"></div>
+                <div className="grid gap-12 lg:grid-cols-3">
+                    {howItWorksSteps.map((step, index) => (
+                        <div key={index} className="flex flex-col items-center text-center lg:items-start lg:text-left lg:flex-row lg:gap-8">
+                             <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary bg-primary/10 font-headline font-bold text-primary mb-4 lg:mb-0 flex-shrink-0">
+                                {step.step}
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-headline font-bold">{step.title}</h3>
+                                <p className="mt-2 text-muted-foreground">{step.description}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-              </CardContent>
-            </TabsContent>
-            <TabsContent value="doctor">
-              <CardHeader className="pt-0">
-                <CardTitle className="font-headline text-2xl">Doctor Login</CardTitle>
-                <CardDescription>Enter your credentials to access the doctor dashboard.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleLogin} className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="email-doctor">Email</Label>
-                    <Input id="email-doctor" type="email" placeholder="dr@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="password-doctor">Password</Label>
-                    <Input id="password-doctor" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading}/>
-                  </div>
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Logging in...' : 'Login as Doctor'}
-                  </Button>
-                </form>
-                 <div className="mt-4 text-center text-sm">
-                  Are you a healthcare professional?{' '}
-                  <Link href="/signup-doctor" className="underline">
-                    Register here
-                  </Link>
-                </div>
-              </CardContent>
-            </TabsContent>
-          </Tabs>
-        </Card>
-      </div>
+            </div>
+        </section>
+      </main>
+
+      <footer className="py-8 bg-card border-t">
+          <div className="container text-center text-muted-foreground">
+              <p>&copy; {new Date().getFullYear()} PoshanAI. Made with ❤️ for a healthier India.</p>
+          </div>
+      </footer>
     </div>
   );
 }
