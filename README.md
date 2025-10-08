@@ -33,6 +33,20 @@ PoshanAI is envisioned as a holistic health and wellness companion that empowers
 
 ---
 
+## 🆚 Competitive Landscape: PoshanAI vs. Other Apps
+
+| Feature                      | Generic Health Apps                                | **PoshanAI (The Winner)**                                                                |
+| ---------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Meal Logging**             | Manual search from a generic database              | **AI-powered image recognition** of Indian & global dishes                               |
+| **Cultural Context**         | Western-centric food databases and units           | **Hyper-local focus** on Indian cuisine, regional diets, and local ingredients           |
+| **Nutritional Analysis**     | Basic calorie and macro tracking                   | **Advanced deficiency detection** (Iron, Vitamin D, etc.) based on dietary patterns      |
+| **Personalization**          | Based on simple goals like weight loss             | **Holistic personalization** using meal data, health reports, and lifestyle              |
+| **Recommendations**          | Generic food suggestions (e.g., "eat more salad") | **Culturally relevant suggestions** (e.g., "add spinach to your dal," "try ragi dosa")   |
+| **Ecosystem Integration**    | Individual use only                                | **Multi-role platform** connecting users, doctors, and public health workers             |
+| **Data-Driven Insights**     | Limited to personal trends                         | **Analyzes medical reports (PDF/image)** for deeper, more accurate health recommendations |
+
+---
+
 ## ⚙️ System Architecture
 
 PoshanAI is built on a modern, serverless architecture designed for scalability and performance.
