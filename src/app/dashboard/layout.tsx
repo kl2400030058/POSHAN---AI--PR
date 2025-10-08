@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import * as React from 'react';
@@ -26,7 +27,7 @@ import {
   HeartPulse,
   ClipboardCheck,
 } from 'lucide-react';
-import { Logo } from '@/components/logo';
+import { Logo } from '@/components/logo.jsx';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/hooks/use-auth';
 import { Skeleton } from '@/components/ui/skeleton';

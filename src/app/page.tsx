@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import * as React from 'react';
@@ -8,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Logo } from '@/components/logo';
+import { Logo } from '@/components/logo.jsx';
 import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 
