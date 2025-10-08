@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import * as React from 'react';
@@ -10,48 +9,59 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Logo } from '@/components/logo.jsx';
-import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan, Quote } from 'lucide-react';
+import { ArrowRight, Bot, Target, BarChart3, Users, Rocket, Search, HandHeart, BrainCircuit, LayoutDashboard, Stethoscope, FileScan, Quote, Sparkles, Globe, BookHeart, UtensilsCrossed, Dumbbell, ShieldCheck, HeartPulse, Scale } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const impactData = [
-  { stakeholder: 'Anganwadi Worker', problem: 'Manual recordkeeping', impact: 'Instant AI analysis' },
-  { stakeholder: 'ICDS Supervisor', problem: 'Delayed reports', impact: 'Live dashboards' },
-  { stakeholder: 'Mother/Child', problem: 'No diet guidance', impact: 'Personalized plan' },
-  { stakeholder: 'Govt/NGO', problem: 'No real-time data', impact: 'AI-based insights' },
+  { stakeholder: 'Anganwadi Worker', problem: 'Manual recordkeeping, limited nutrition knowledge', impact: 'AI-based instant analysis + auto logging' },
+  { stakeholder: 'ICDS Supervisor', problem: 'Delayed, inconsistent data from centers', impact: 'Live dashboards + real-time tracking' },
+  { stakeholder: 'Mother / Child', problem: 'Lack of personalized guidance', impact: 'Customized, local diet and wellness plan' },
+  { stakeholder: 'Govt / NGO', problem: 'Hard to measure actual progress', impact: 'Data-driven insights for targeted interventions' },
 ];
 
 const features = [
     {
         icon: <Bot className="h-8 w-8 text-primary" />,
         title: 'AI Meal Analyzer',
-        description: 'Snap a photo of your meal and get an instant breakdown of its nutritional content and calories.'
+        description: 'Just snap a photo of your meal. Our powerful AI instantly recognizes food items, including a wide variety of Indian dishes, and provides a detailed breakdown of its nutritional content and estimated calories.'
     },
     {
         icon: <Target className="h-8 w-8 text-primary" />,
         title: 'Nutrient Deficiency Detection',
-        description: 'Our AI analyzes your diet to pinpoint potential nutrient gaps and helps you address them effectively.'
+        description: "Go beyond calorie counting. The app analyzes your meal patterns and health profile to pinpoint potential nutrient gaps, helping you address deficiencies like iron, Vitamin D, and B12 before they become a problem."
     },
     {
-        icon: <BarChart3 className="h-8 w-8 text-primary" />,
+        icon: <Sparkles className="h-8 w-8 text-primary" />,
         title: 'Personalized Recommendations',
-        description: 'Receive tailored food and fitness suggestions based on your unique health profile and goals.'
+        description: "Receive hyper-personalized food and fitness suggestions that are tailored to your unique body type, lifestyle, dietary preferences (including vegetarian and Jain), and specific health goals."
     },
     {
         icon: <LayoutDashboard className="h-8 w-8 text-primary" />,
         title: 'Daily Progress Dashboard',
-        description: 'Track your daily intake of calories, macros, and water to stay on top of your health journey.'
+        description: "Your interactive dashboard provides an at-a-glance overview of your day. Easily track your intake of calories, macronutrients (protein, carbs, fats), and water to stay motivated and informed."
     },
     {
         icon: <FileScan className="h-8 w-8 text-primary" />,
         title: 'Health Report Analysis',
-        description: 'Upload your medical reports for deeper AI-driven insights and more accurate recommendations.'
+        description: "Gain deeper insights by uploading your existing medical reports (PDF or image). Our AI can extract key biomarkers to further customize your recommendations and track your health progress over time."
     },
     {
         icon: <Stethoscope className="h-8 w-8 text-primary" />,
         title: 'Doctor-Patient Collaboration',
-        description: 'Connect with your doctor, allowing them to monitor progress and create guided health plans.'
+        description: "Seamlessly connect with your doctor or dietician. Grant them access to view your progress, meal logs, and reports, allowing them to provide expert guidance and create tailored health plans directly within the app."
     }
+];
+
+const whyPoshanAIPoints = [
+  { icon: <Globe className="h-6 w-6 text-primary" />, title: 'Built for India', description: 'Recommendations are culturally relevant, featuring local and seasonal Indian foods.' },
+  { icon: <BookHeart className="h-6 w-6 text-primary" />, title: 'Holistic Approach', description: 'We go beyond diet to include hydration, fitness, and lifestyle for overall wellness.' },
+  { icon: <UtensilsCrossed className="h-6 w-6 text-primary" />, title: 'Effortless Logging', description: 'Forget manual entry. Just snap a photo of your meal and our AI does the rest.' },
+  { icon: <Dumbbell className="h-6 w-6 text-primary" />, title: 'Dynamic & Adaptive', description: 'Your plan evolves with you. The AI adjusts based on your progress and feedback.' },
+  { icon: <ShieldCheck className="h-6 w-6 text-primary" />, title: 'Science-Backed', description: 'Powered by advanced AI and nutritional science for credible, effective advice.' },
+  { icon: <HeartPulse className="h-6 w-6 text-primary" />, title: 'Proactive Health', description: 'Identify and address nutritional gaps before they lead to health issues.' },
+  { icon: <Scale className="h-6 w-6 text-primary" />, title: 'Scalable Impact', description: 'Designed to support public health initiatives from the individual to the community level.' },
+  { icon: <Users className="h-6 w-6 text-primary" />, title: 'Collaborative Care', description: 'Bridge the gap between you and your healthcare provider for better outcomes.' },
 ];
 
 const howItWorksSteps = [
@@ -109,6 +119,7 @@ export default function HomePage() {
           </Link>
           <nav className="hidden flex-1 items-center space-x-6 text-sm font-medium md:flex">
             <Link href="#features" className="text-foreground/60 transition-colors hover:text-foreground/80">Features</Link>
+            <Link href="#why-us" className="text-foreground/60 transition-colors hover:text-foreground/80">Why PoshanAI</Link>
             <Link href="#impact" className="text-foreground/60 transition-colors hover:text-foreground/80">Impact</Link>
             <Link href="#how-it-works" className="text-foreground/60 transition-colors hover:text-foreground/80">How It Works</Link>
             <Link href="#vision" className="text-foreground/60 transition-colors hover:text-foreground/80">About</Link>
@@ -148,8 +159,8 @@ export default function HomePage() {
               <h1 className="text-4xl font-headline font-bold tracking-tight md:text-5xl lg:text-6xl">
                 Meet PoshanAI: Your Smart Nutrition Partner
               </h1>
-              <p className="mt-6 max-w-2xl text-lg text-white/90">
-                From meal scans to personalized plans—health made simple. Analyze your meals, track nutrition, and get personalized recommendations instantly.
+              <p className="mt-6 max-w-3xl text-lg text-white/90">
+                From effortless meal scans with a simple photo to hyper-personalized diet and fitness plans, PoshanAI is your all-in-one solution for a healthier life. We analyze your meals, track your nutrition, and provide actionable, AI-driven recommendations tailored to the Indian context.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="button-glow bg-primary hover:bg-primary/80 text-primary-foreground" onClick={() => router.push(user ? '/dashboard' : '/signup')}>
@@ -168,8 +179,8 @@ export default function HomePage() {
         {/* Features Section */}
         <section id="features" className="container py-16 sm:py-24">
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-headline font-bold">A smarter way to manage your health</h2>
-                <p className="mt-4 text-lg text-muted-foreground">PoshanAI brings cutting-edge technology to your daily health routine.</p>
+                <h2 className="text-3xl font-headline font-bold">A Smarter Way to Manage Your Health</h2>
+                <p className="mt-4 text-lg text-muted-foreground">PoshanAI integrates cutting-edge AI technology into your daily routine, making holistic health management simple, intuitive, and highly effective.</p>
             </div>
             <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {features.map((feature, index) => (
@@ -188,12 +199,35 @@ export default function HomePage() {
             </div>
         </section>
 
+        {/* Why PoshanAI Section */}
+        <section id="why-us" className="bg-muted/50 py-16 sm:py-24">
+          <div className="container">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-headline font-bold">Why Choose PoshanAI?</h2>
+              <p className="mt-4 text-lg text-muted-foreground">PoshanAI is more than just a calorie counter. It's a comprehensive health ecosystem designed to provide you with actionable insights and sustainable habits for a healthier life.</p>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {whyPoshanAIPoints.map((point) => (
+                <div key={point.title} className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    {point.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{point.title}</h3>
+                    <p className="text-sm text-muted-foreground">{point.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
         {/* Impact Section */}
-        <section id="impact" className="bg-muted/50 py-16 sm:py-24">
+        <section id="impact" className="py-16 sm:py-24">
           <div className="container">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-headline font-bold">Empowering Health at Every Level</h2>
-              <p className="mt-4 text-lg text-muted-foreground">From individual users to government initiatives, PoshanAI makes a measurable difference.</p>
+              <p className="mt-4 text-lg text-muted-foreground">From individual users to government initiatives, PoshanAI makes a measurable difference across the entire public health landscape.</p>
             </div>
             <Card className="mt-12">
               <Table>
@@ -219,10 +253,10 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="container py-16 sm:py-24">
+        <section id="how-it-works" className="bg-muted/50 container py-16 sm:py-24">
              <div className="mx-auto max-w-2xl text-center">
                 <h2 className="text-3xl font-headline font-bold">Get Started in 3 Simple Steps</h2>
-                <p className="mt-4 text-lg text-muted-foreground">Transform your health with a process that's as easy as it is effective.</p>
+                <p className="mt-4 text-lg text-muted-foreground">Transform your health with a process that's as easy as it is effective. Your journey to better nutrition is just a photo away.</p>
             </div>
             <div className="relative mt-12">
                 <div className="absolute left-1/2 top-4 hidden h-full w-px -translate-x-1/2 border-l-2 border-dashed border-border lg:block"></div>
@@ -243,7 +277,7 @@ export default function HomePage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="bg-muted/50 py-16 sm:py-24">
+        <section id="testimonials" className="py-16 sm:py-24">
           <div className="container">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-headline font-bold">What Our Users Are Saying</h2>
@@ -273,24 +307,25 @@ export default function HomePage() {
         </section>
 
         {/* Vision Section */}
-        <section id="vision" className="py-16 sm:py-24">
+        <section id="vision" className="bg-muted/50 py-16 sm:py-24">
           <div className="container grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                     <HandHeart className="h-8 w-8 text-primary" />
                   </div>
-                  <h2 className="text-3xl font-headline font-bold">Our Vision: A Healthier India</h2>
+                  <h2 className="text-3xl font-headline font-bold">Our Vision: A Healthier India, for Everyone</h2>
                 </div>
                 <p className="text-lg text-muted-foreground">
-                    We are building India’s first AI-powered nutrition ecosystem to combat malnutrition at scale. Our mission is to make personalized, scientific, and culturally relevant dietary guidance accessible to everyone.
+                    We are on a mission to build India’s first AI-powered public health ecosystem to combat malnutrition and promote wellness at a national scale. Our goal is to make personalized, scientific, and culturally relevant dietary guidance accessible and affordable for every single Indian.
                 </p>
                 <p className="text-muted-foreground">
-                    By empowering individuals, anganwadi workers, and healthcare professionals with cutting-edge AI tools, we aim to create a sustainable, data-driven approach to public health. PoshanAI is more than an app; it's a movement towards a healthier future for all.
+                    By empowering individuals with personal insights, equipping anganwadi workers with smart tools, and providing actionable data to healthcare professionals and policymakers, we aim to create a virtuous cycle of health improvement. PoshanAI is more than an app; it's a movement towards a healthier, stronger, and more resilient future for all.
                 </p>
             </div>
             <div className="relative flex items-center justify-center">
-              <BrainCircuit className="w-48 h-48 lg:w-64 lg:h-64 text-primary/20" />
+              <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl"></div>
+              <BrainCircuit className="w-48 h-48 lg:w-64 lg:h-64 text-primary/50 relative" />
             </div>
           </div>
         </section>
@@ -305,7 +340,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
-
-    
